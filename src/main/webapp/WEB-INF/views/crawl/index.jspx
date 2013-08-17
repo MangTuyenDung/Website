@@ -1,0 +1,23 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <!--<center>Hệ thống quản lý nội dung Topmedia</center>-->
+    <div class="bs-docs-example" style="padding-bottom: 24px;">        
+        <a href="#" class="btn btn-large btn-danger" rel="popover" title="A Title" data-content="And here's some amazing content. It's very engaging. right?">Click to toggle popover</a>
+    </div>
+    <c:out value="${crawl.title}"/>
+    <br/>
+    <c:out value="${crawl.domain}"/>
+    <br/>
+    <c:out value="${crawl.url}"/>
+    <br/>
+    <c:out value="${crawl.companyName}"/>
+    <br/>
+    <c:out value="${crawl.companyAddress}"/>
+    <br/>
+    ${crawl.companyOverview}
+</div>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="overview" class="resume-border" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:mtd="http://mangtuyendung.vn/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:ckeditor="http://ckeditor.com"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="info_url" value="/thanh-vien/thong-tin-thanh-vien"/>
+    <div class="block">
+        <h2 class="bl-title">
+            <strong>Giới thiệu bản thân</strong>
+        </h2>
+    </div>
+    <div class="introduction">
+        <p style="text-align: justify">
+            <c:choose>
+                <c:when test="${empty profile.resumeOverview}">
+                    Hãy giới thiệu về bản thân bạn.
+                </c:when>
+                <c:otherwise>
+                    ${mtd:escapeBr(profile.resumeOverview)}
+                </c:otherwise>
+            </c:choose>
+        </p>
+    </div>
+</div>

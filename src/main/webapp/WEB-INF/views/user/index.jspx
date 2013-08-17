@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:ckeditor="http://ckeditor.com"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <div class="resume">
+        <div id="content">
+            <div class="top-card">
+                <div class="profile-card vcard">
+                    <div class="profile-picture" id="profile-picture">
+                        <div class="photo-wrap-lg">
+                            <img src="http://m4.licdn.com/mpr/mpr/shrink_150_150/p/1/000/0f3/339/058902b.jpg" width="150" height="150" alt="Tran Anh Tuan"/>
+                        </div>
+                        <div class="edit-photo">
+                            <a href="/profile/edit-picture-info?goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-photo">Edit Photo</a>
+                        </div>
+                    </div>
+                    <div class="profile-overview">
+                        <div id="member-107491834" class="masthead">
+                            <h1>
+                                <span class="n fn" id="name">
+                                    <span class="full-name"><span class="given-name">Tran</span> <span class="family-name">Anh Tuan</span></span>
+                                </span>
+                                <span class="edit">
+                                    <a name="editBasicInfo" href="/profile/edit-basic-info?locale=en_US&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1&amp;trk=prof-ovw-edit-basic_info" title="Edit your name">Edit</a>
+                                </span>
+                            </h1>
+                            <span class="phonetic-full-name">
+                            </span>
+                            <p class="title" style="display:block">
+                                CTO at MangTuyenDung
+                            </p>
+                            <dl id="headline" class="demographic-info adr">
+                                <dt>Location</dt>
+                                <dd>
+                                    <span class="locality">
+                                        Vietnam
+                                    </span>
+                                </dd>
+                                <dt>Industry</dt>
+                                <dd class="industry">
+                                    Human Resources
+                                </dd>
+                            </dl>
+                        </div>
+                    </div><!-- End profile-overview -->
+                </div><!-- End profile card -->
+            </div>
+            <p/>
+            <h3 class="text-info">Overview</h3>
+            <p style="text-align: justify">
+                In life everyone wants to build yourself a career. Each person can choose a different path, depending on the capacity of the person they succeed or not. Success depending on each person will have their goals
+                <br/>
+                <br/>
+                I'm not happy with the current, always want to strive for more, want to build yourself a career, working hard with all his passion. Build yourself a big target for its pursuit. Career that big or small, successful or not, but also giving me the experience, lessons learned bones where blood that can not be. I will be proud of what I has done, dare to think, dare to do
+            </p>
+
+            <div class="header">
+                <h2 id="yui-gen6" class="drag-handle" style="" title="Drag to rearrange profile sections"> Experience
+                    <a class="add" name="addPosition" href="/profile/edit-position?goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1"><span>+ <strong>Add</strong> a position</span></a>
+                </h2>
+                <div id="add-primary-experience" class="dialog-container interrupt">
+                    <div class="alert attention"><p><strong>You must first add a position on your primary profile (English) in order for it to appear on this page.</strong></p></div>
+                    <p>Click Continue to add a position on your primary profile.</p>
+                    <p class="actions">
+                        <a href="/profile/edit-position?locale=en_US&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" class="btn-primary">Continue</a>
+                        or
+                        <a href="#profile-experience" class="dialog-close">Cancel</a>
+                    </p>
+                </div>
+            </div>
+            <div class="section subsection-reorder draggable li-ig-profile" id="profile-experience" style="display:block">
+
+                <div class="content vcalendar">
+                    <div>
+                        <div>
+                            <div class="position  first experience vevent vcard summary-current" style="display:block">
+                                <a class="include" href="#name"></a>
+                                <div class="postitle">
+                                    <h3 class="false">
+                                        <span class="title">CTO</span>
+                                        <span class="edit"><a name="editPosition" href="/profile/edit-position?positionID=322876640&amp;locale=en_US&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" title="Change or delete this position">Edit</a></span>
+                                    </h3>
+                                    <h4>
+                                        <strong>
+                                            <span class="org summary">MangTuyenDung</span>
+                                        </strong>
+                                    </h4>
+                                </div>
+                                <p class="orgstats organization-details current-position">
+                                </p>
+                                <p class="period">
+                                    <abbr class="dtstart" title="2012-09-01">September 2012</abbr>
+                                    – <abbr class="dtstamp" title="2012-10-15">Present</abbr>
+                                    <span class="duration"><span class="value-title" title="P2M"> </span>(2 months)</span>
+                                </p>
+                                <p class=" description current-position">
+                                    CTO at MangTuyenDung
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="position experience vevent vcard summary-past" style="display:block">
+                                <a class="include" href="#name"></a>
+                                <div class="postitle">
+                                    <h3 class="false">
+                                        <span class="title">Project Manager</span>
+                                        <span class="edit"><a name="editPosition" href="/profile/edit-position?positionID=169587504&amp;locale=en_US&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" title="Change or delete this position">Edit</a></span>
+                                    </h3>
+                                    <h4>
+                                        <strong>
+                                            <span class="org summary">IDCS Company Ltd</span>
+                                        </strong>
+                                    </h4>
+                                </div>
+                                <p class="orgstats organization-details past-position">
+                                </p>
+                                <p class="period">
+                                    <abbr class="dtstart" title="2010-03-01">March 2010</abbr>
+                                    – <abbr class="dtend" title="2012-10-01">October 2012</abbr> <span class="duration"><span class="value-title" title="P2Y8M"> </span>(2 years 8 months)</span>
+                                </p>
+                                <p class=" description past-position">
+                                    + Advance experience using Spring Framework, Spring Data Mongodb, Spring Roo ...<br/>
+                                    + Config replica set system database NOSQL MongoDB <br/>
+                                    + Build system webserver Apache Proxy and Tomcat Server with Cluster Load Balancing using mod_proxy, mod_jk for http://topmedia.vn<br/>
+                                    + Build system VPS by Parallels® Virtuozzo Containers, provide hosting - domain - VPS for customer http://my.topmedia.vn
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="position experience vevent vcard summary-past" style="display:block">
+                                <a class="include" href="#name"></a>
+                                <div class="postitle">
+                                    <h3 class="false">
+                                        <span class="title">Team Leader</span>
+                                        <span class="edit"><a name="editPosition" href="/profile/edit-position?positionID=208770303&amp;locale=en_US&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" title="Change or delete this position">Edit</a></span>
+                                    </h3>
+                                    <h4><strong>
+                                            <span class="org summary">Bluesea Media</span>
+                                        </strong>
+                                    </h4>
+                                </div>
+                                <p class="orgstats organization-details past-position">
+                                </p>
+                                <p class="period">
+                                    <abbr class="dtstart" title="2008-03-01">March 2008</abbr>
+                                    – <abbr class="dtend" title="2012-05-01">May 2012</abbr> <span class="duration"><span class="value-title" title="P4Y3M"> </span>(4 years 3 months)</span>
+                                </p>
+                                <p class=" description past-position">
+                                    + Web design based on Struts Framework, Spring, iBatis, Hibernate<br/>
+                                    - SMS Education Project<br/>
+                                    - Content Management for SkyMusik.<br/>
+                                    - Wap portal<br/>
+                                    - Report<br/>
+                                    + System Enterprise using Spring Framework with generate source by Spring Roo and many advance technology by Spring Source<br/>
+                                    + Understanding the basics of Oracle database management.<br/>
+                                    + Deploying services on the webservice: JAX-WS and JAX-RPC<br/>
+                                    + Build client to automatically send information to partners via HTTP, SOAP, ....<br/>
+                                    + Building Monitor system monitoring and warning errors for GW<br/>
+                                    + Develop web site statistics, data entry application for SMS services<br/>
+                                    + SMS deployment scenarios.<br/>
+                                    + Programming J2ME applications on mobile. Build framework for mobile<br/>
+                                    - Football Guide<br/>
+                                    - Karaoke on Mobile<br/>
+                                    - Color SMS<br/>
+                                    - Millionaire Mobile<br/>
+                                    - .....<br/>
+                                    + Applications programming through SMS on mobile.<br/>
+                                    + Develop internal PBX systems based on Asterisk.<br/>
+                                    + Building SMS Gateway system to deploy services on the value of 8x77, 6x66, 6x04, 9x91<br/>
+                                    + Building systems based on Java SMPP SMS GW http://opensmpp.logica.com Library<br/>
+                                    + Deploying applications built for partners<br/>
+                                    <br/>
+                                    + Experienced programmers to use Devexpress Control build application:<br/>
+                                    - Manager Hotel System<br/>
+                                    + Experienced programmers to use Spring.NET, NHibernate:<br/>
+                                    - Website http://doden.giaitri24.vn.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="position experience vevent vcard summary-past" style="display:block">
+                                <a class="include" href="#name"></a>
+                                <div class="postitle">
+                                    <h3 class="false">
+                                        <span class="title">Staff</span>
+                                        <span class="edit"><a name="editPosition" href="/profile/edit-position?positionID=211383909&amp;locale=en_US&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" title="Change or delete this position">Edit</a></span>
+                                    </h3>
+                                    <h4><strong>
+                                            <span class="org summary">Institute of Information Technology</span>
+                                        </strong>
+                                    </h4>
+                                </div>
+                                <p class="orgstats organization-details past-position">
+                                </p>
+                                <p class="period">
+                                    <abbr class="dtstart" title="2007-08-01">August 2007</abbr>
+                                    – <abbr class="dtend" title="2008-03-01">March 2008</abbr> <span class="duration"><span class="value-title" title="P8M"> </span>(8 months)</span>
+                                </p>
+                                <p class=" description past-position">
+                                    + Programing Java<br/>
+                                    - Framework Struts Framework S2DAO use connect to MySQL and PostgreSQL databases<br/>
+                                    - Using Eclipse to develop<br/>
+                                    - Use SVN source code management in group work.<br/>
+                                    + Experiencein using Ubuntu Linux<br/>
+                                    + Learn open source applications can replace free software with similar functionality to meet business needs<br/>
+                                    + Management and configuration services on Linux Server: Apache, DNS, DHCP, FTP, SAMBA, SVN, MySQL, PostgreSQL ...<br/>
+                                    + Set the applications used in resource management at work:<br/>
+                                    - Document Management: Knowleagde Tree ...<br/>
+                                    - Project Management: dotProject ...<br/>
+                                    - Manage code: Trac, SVN ...<br/>
+                                    + Establish a system backup of Windows and Linux using backuppc with low cost and high efficiency. No expensive hardware like this.<br/>
+                                    + Provide a solution for Open Source applications for desktop and server applications.<br/>
+                                    + Provide application solutions using WEB platform dependent and no operating system.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="extra">
+            <div class="profile-completeness">
+                <div class="progress progress-striped active">
+                    <div class="bar" style="width: 90%;"><strong>90%</strong> profile completeness</div>
+                </div>
+                <div class="tips" id="resume-import">
+                    <h4>Complete your profile quickly</h4>
+                    <p class="upload">
+                        <a href="#upload-resume" id="yui-gen19"><strong>Import your résumé</strong> to build a complete profile in minutes.</a>
+                    </p>
+                    <div id="upload-resume" class="dialog-container">
+                        <form action="/mupld/res-upld" method="POST" name="resumeUpload" novalidate="novalidate" enctype="multipart/form-data" accept-charset="UTF-8">
+                            <p class="upload">Upload Microsoft Word, PDF, text or HTML files of up to 500KB. </p>
+                            <p><input name="file" type="file" size="35"/></p>
+                            <p class="actions"><input class="btn-primary" type="submit" name="upload" value="Upload Résumé"/><span class="alternate"> or <a href="#resume-import" class="dialog-close">Cancel</a></span></p>
+                            <input type="hidden" name="upload_info" value="DXJRs9DKQLQWAyFdjZ7_G9rn3CYfPGWxyLEvtKmbrBznYGWxyjnvAwJftS7y_HhwHByN-_1RtVRcc0txnFHNadLHtVXnY895kn-NAabkMrtp6E9A08r7DPbbh6K66Vf5d-b0uZnnqm_E7jhwNK8GaPbflnXE_jQ4NsHVlammMV7yRHRuVHLT3ZnyXsYEPshlpsJoDPbbLw7yYntef8b0zRrcCPYgkjQ2FoJ05AjPqCYHV3hwHjg5Jfrn3HZkPjhzN3Jo5REZOvYEkB7ScjJIDOry3Cw9I8t5_NJiX7gQwxi6Ix34PVrKLRb1LOzy6sZA2mDVC_1R4VKnpEkSNHr5wwJftS7y_tTxt7" id="upload_info-resumeUpload"/>
+                            <input type="hidden" name="isCSMode" value="false" id="isCSMode-resumeUpload"/>
+                            <input type="hidden" name="csrfToken" value="ajax:1624823590905340215" id="csrfToken-resumeUpload"/>
+                            <input type="hidden" name="sourceAlias" value="0_bDL6Qg16XxC0mXAS8vUxbvElVv3wvoSqKhWatYABScj" id="sourceAlias-resumeUpload"/>
+                        </form>
+                    </div>
+                    <div id="upload-resume-processing" class="dialog-container processing">
+                        <p class="loading">
+                            <img src="http://s3.licdn.com/scds/common/u/img/anim/anim_loading_40x40.gif" height="40" width="40" alt="Loading..."/>
+                        </p>
+                        <p>We are scanning your résumé for experience, education, summary and skills information.</p>
+                        <p>You will have an opportunity to review this imported information before changes are made to your profile.</p>
+                    </div>
+                </div>
+                <div class="tips">
+                    <h4>Profile Completion Tips
+                        <em><a class="" href="/static?key=pop%2Fpop_more_profile_completeness" onclick="LI.popup( '/static?key=pop%2Fpop_more_profile_completeness', {} ); return false;" title="New window will open">(Why do this?)</a></em>
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="/people/pymk?trk=nprofile-profile_completeness-new_pymk">
+                                Add connections
+                            </a>
+                            <span class="increase">
+                                (+10%)
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="leo-module mod-util connections">
+                <div class="header">
+                    <h3><strong>Tran’s Connections</strong> (30)</h3>
+                </div>
+                <div class="content">
+                    <ul>
+                        <li>
+                            <strong>
+                                <a href="/profile/view?id=130402434&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" title="View Le Thi Minh's Profile" name="browseConShared" rel="contact">
+                                    Le Thi Minh Huyen
+                                </a>
+                            </strong><br/>
+                            <span class="headline">Consutant - Excutive Search Service at Le &amp; Associates (L&amp;A)</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <a href="/profile/view?id=139484745&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" title="View Chuyen's Profile" name="browseConShared" rel="contact">
+                                    Chuyen Vu
+                                </a>
+                            </strong><br/>
+                            <span class="headline">PhD student at UTS</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <a href="/profile/view?id=17181891&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" title="View Thuy's Profile" name="browseConShared" rel="contact">
+                                    Thuy Nguyen
+                                </a>
+                            </strong><br/>
+                            <span class="headline">Manager of Layout Design team at Minh Graphic</span>
+                        </li>
+                    </ul>
+                    <p class="more"><a href="/profile/connections?id=107491834&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1" name="seeMoreConnections">See all <strong>Connections</strong> »</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

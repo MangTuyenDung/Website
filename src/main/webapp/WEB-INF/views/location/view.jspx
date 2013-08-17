@@ -1,0 +1,114 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <jsp:useBean id="date" class="java.util.Date" />
+    <spring:url value="/" var="home_url" />
+    <center class="itemscope"><h1 class="text-success" style="font-size: 20px">Tìm việc làm tại ${location.name}</h1></center>
+    <div class="breadcrumb">
+        <li>
+            <a title="Mạng tuyển dụng" href="${home_url}">
+                Tìm việc nhanh
+            </a>
+        </li>
+        »
+        <li>
+            <a title="Tìm việc làm tại ${location.name}" href="${breadcrumb_url}">
+                Tìm việc làm tại ${location.name}
+            </a>
+        </li>
+    </div>
+    <div itemscope="" itemtype="http://schema.org/Recipe" class="itemscope">
+        <span itemprop="name">Tìm việc làm tại ${location.name}</span>
+        <div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+            <span itemprop="ratingValue">${ratingValue}</span>/<span itemprop="bestRating">10</span>
+            <span itemprop="ratingCount">${ratingCount}</span> bình chọn
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#jobNew" data-toggle="tab"><span><b>Tin tuyển dụng mới tại ${location.name}</b></span></a></li>
+        <li><a href="#jobCategory" data-toggle="tab"><span><b>Việc làm tại tỉnh thành ${location.name}</b></span></a></li>
+    </ul>
+    <div class="tab-content job-content-tab">
+        <div class="tab-pane active" id="jobNew">
+            <div class="container-fluid"><!----></div>
+            <c:forEach items="${jobs}" var="item" varStatus="rowCounter">
+                <div class="container-fluid">
+                    <c:if test="${item.id > (date.time - 1*24*60*60*1000)}">
+                        <spring:url value="/resources/images" var="img_url" />
+                        <img src="${img_url}/new.gif" alt="${item.title}" title="${item.title}"/>
+                    </c:if>
+                    <fmt:formatDate value="${item.updated}" pattern="dd/MM"/>
+                    <c:choose>
+                        <c:when test="${item.higthligthTitle == null}">
+                            <util:title id="${item.signature}" title="${item.title}" maxlength="250"/>
+                        </c:when>
+                        <c:otherwise>
+                            <util:title id="${item.signature}" href="${item.title}" title="${item.higthligthTitle}" maxlength="250"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <ul>
+                        <li style="color: #666">
+                            Công ty: <span class="text-error"><c:out value="${item.companyName}" /></span>
+                        </li>
+                        <div class="row-fluid">
+                            <c:if test="${item.jobMemberLevel != null}">
+                                <div class="span4">
+                                    <li style="color: #666">
+                                        Cấp bậc: ${item.jobMemberLevel}
+                                    </li>
+                                </div>
+                            </c:if>
+                            <c:if test="${item.jobLocation != null}">
+                                <div class="span7">
+                                    <li style="color: #666">
+                                        Tỉnh thành: ${item.jobLocation}
+                                    </li>
+                                </div>
+                            </c:if>
+                        </div>  
+                    </ul>    
+                    <span><c:out value="${item.content}" />  ... </span>
+                    <hr/>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="tab-pane" id="jobCategory">
+            <div class="row-fluid">
+                <div class="container-fluid"><!----></div>
+                <c:forEach items="${categories}" var="item" varStatus="rowCounter">
+                    <c:if test="${item.enabled}">
+                        <div class="span4">
+                            <c:if test="${item.count gt 200}">
+                                <span class="hight-light"><util:category-location category="${item.name}" location="${location.name}" title="Tìm việc làm ${item.name}"/></span> (${item.count})
+                            </c:if>
+                            <c:if test="${item.count lt 200}">
+                                <util:category-location category="${item.name}" location="${location.name}" title="Tìm việc làm ${item.name}"/> (${item.count})
+                            </c:if>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+    <spring:url value="/viec-lam-tai-${fn:toLowerCase(location.url)}" var="page_url" />
+    <util:pagination maxPages="${maxPages}" page="${pageNo}" size="${sizeNo}" linkparam="${page_url}"/>
+    <div class="breadcrumb">
+        <li>
+            <a title="Mạng tuyển dụng" href="${home_url}">
+                Tìm việc nhanh
+            </a>
+        </li>
+        »
+        <li>
+            <a title="Tìm việc làm tại ${location.name}" href="${breadcrumb_url}">
+                Tìm việc làm tại ${location.name}
+            </a>
+        </li>
+    </div>
+</div>

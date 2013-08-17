@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:mtd="http://mangtuyendung.vn/functions"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:ckeditor="http://ckeditor.com"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="position_url" value="/thanh-vien/kinh-nghiem"/>
+    <spring:url var="position_delete_url" value="/thanh-vien/kinh-nghiem/do"/>
+    <spring:url var="delete_url" value="/resources/images/delete.png"/>
+    <div class="block">
+        <h2 class="bl-title">
+            <strong>Kinh nghiệm làm việc</strong>
+        </h2>
+    </div>
+
+    <c:forEach items="${positions}" var="item" varStatus="rowCounter">
+        <div class="edit-CV" style="margin-left: 20px; margin-bottom: 20px;">
+            <div class="corner"><i class="icon-corner"><!----></i></div>
+            <div class="content clearfix">
+                <div class="span3 fl">
+                    Tháng ${item.startDateMonth} ${item.startDateYear} - 
+                    <c:choose>
+                        <c:when test="${item.currentHere}">
+                            Đến hiện tại
+                        </c:when>
+                        <c:otherwise>
+                            Tháng ${item.endDateMonth} ${item.endDateYear}
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="span8 fr">
+                    <strong>${item.title}</strong>
+                    <br/>
+                    ${item.companyName}
+                </div>
+                <div class="clearfix"><!----></div>
+                <p>${mtd:escapeBr(item.description)}</p>
+            </div>
+        </div>
+    </c:forEach>    
+</div>

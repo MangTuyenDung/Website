@@ -1,0 +1,130 @@
+/*******************************************************************************/
+/***** Main */
+#main .main-application {
+	float: left;
+	width: 996px;
+}
+
+#main .main-application .item {
+	border: 1px solid #EAEAEA;
+	background-color: #F9F9F9;
+	float: left;
+	width: 118px;
+	height: 150px;
+	padding: 1px;
+	margin: 1px;
+	display: inline;
+	overflow: hidden;
+}
+
+#main .main-application .item:hover {
+	border: 1px solid #91D460;
+	background-color: #F7FFE7;
+}
+
+#main .main-application .item .image {
+	width: 120px;
+	height: 100px;
+	padding: 2px;
+}
+
+#main .main-application .news {
+	border: 1px solid #EAEAEA;
+	background-color: #F9F9F9;
+	float: left;
+	width: 320px;
+	height: 240px;
+	padding: 1px;
+	margin: 1px;
+	display: inline;
+	overflow: hidden;
+}
+
+#main .main-application .news:hover {
+	border: 1px solid #91D460;
+	background-color: #F7FFE7;
+}
+
+#main .main-application .news .image {
+	width: 312px;
+	height: 240px;
+	padding: 2px;
+}
+
+#main .main-application .screenshoot {
+	border: 1px solid #EAEAEA;
+	background-color: #F9F9F9;
+	float: left;
+	width: 244x;
+	height: 344px;
+	padding: 2px;
+	margin: 5px;
+}
+
+#main .main-application .screenshoot .thumbnail{
+	width: 240x;
+	height: 320px;
+}
+
+#main .main-application .screenshoot:hover {
+	border: 1px solid #91D460;
+	background-color: #F7FFE7;
+}
+
+#main .main-album {
+	float: left;
+	width: 996px;
+	border: 1px solid #E1E1E1;
+	padding: 1px;
+}
+
+#main .main-album .menu {
+	float: left;
+	margin-left: -7px;
+}
+
+#main .main-album .menu .item {
+	float: left;
+	width: 241px;
+}
+
+#main .main-album .thumb {
+	float: left;
+	margin-left: -7px;
+	max-width: 996px;
+}
+
+#main .main-album .thumb img {
+	max-width: 996px;
+}
+
+#main .main-album .thumb-album {
+	width: 180px;
+	overflow: hidden;
+	float: left;
+	margin: 3px 0 0 5px;
+	display: inline;
+	height: 260px;
+	border: 1px solid #EAEAEA;
+	background-color: #F9F9F9;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+#main .main-album .thumb-album:hover {
+	border: 1px solid #91D460;
+	background-color: #F7FFE7;
+	height: 260px;
+}
+
+#main .models {
+	
+}
+
+#main .models .model-item {
+	float: left;
+	width: 112px;
+	padding: 4px;
+	height: 140px;
+}
+/***** End main */

@@ -1,0 +1,184 @@
+<div class="container-fluid" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <jsp:useBean id="date" class="java.util.Date" />
+    <spring:url value="/" var="home_url" />
+    <spring:url value="/resources/images" var="image_url" />
+    <spring:url var="create_job_url" value="/dang-tin-tuyen-dung/buoc-1.html"/>
+    <spring:url var="create_job_json_url" value="/dang-tin-tuyen-dung/buoc-1/json"/>
+    <util:panel id="createJob" title="Thông tin đăng tuyển">
+        <form:form class="form-horizontal" id="create-job-form" modelAttribute="jobCreateForm" method="POST" action="${create_job_url}">
+            <div class="control-group" id="jobTitle">
+                <label class="control-label" for="jobTitle">Tiêu đề</label>
+                <div class="controls">
+                    <form:input path="jobTitle" class="span8" rows="10" />
+                    <span class="help-inline"><form:errors path="jobTitle" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="jobOverview">
+                <label class="control-label" for="jobOverview">Mô tả công việc</label>
+                <div class="controls">
+                    <form:textarea path="jobOverview" class="span8" rows="10"/>
+                    <span class="help-inline"><form:errors path="jobOverview" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="jobRequirement">
+                <label class="control-label" for="jobRequirement">Yêu cầu công việc</label>
+                <div class="controls">
+                    <form:textarea path="jobRequirement" class="span8" rows="10"/>
+                    <span class="help-inline"><form:errors path="jobRequirement" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="jobExperienceLevel">
+                <label class="control-label" for="jobExperienceLevel">Yêu cầu kinh nghiệm</label>
+                <div class="controls">
+                    <form:select path="jobExperienceLevel">
+                        <form:option value="Chưa có kinh nghiệm">Chưa có kinh nghiệm</form:option>
+                        <form:option value="1 năm">1 năm</form:option>
+                        <form:option value="2 năm">2 năm</form:option>
+                        <form:option value="3 năm">3 năm</form:option>
+                        <form:option value="4 năm">4 năm</form:option>
+                        <form:option value="5 năm">5 năm</form:option>
+                        <form:option value="Hơn 5 năm">Hơn 5 năm</form:option>
+                        <form:option value="Hơn 10 năm">Hơn 10 năm</form:option>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="jobExperienceLevel" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="jobEducationLevel">
+                <label class="control-label" for="jobEducationLevel">Yêu cầu bằng cấp</label>
+                <div class="controls">
+                    <form:select path="jobEducationLevel">
+                        <form:option value="Không yêu cầu">Không yêu cầu</form:option>
+                        <form:option value="Lao động phổ thông">Lao động phổ thông</form:option>
+                        <form:option value="Trung cấp">Trung cấp</form:option>
+                        <form:option value="Cao đẳng">Cao đẳng</form:option>
+                        <form:option value="Đại học">Đại học</form:option>
+                        <form:option value="Trên đại học">Trên đại học</form:option>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="jobEducationLevel" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="jobSalary">
+                <label class="control-label" for="jobSalary">Mức lương</label>
+                <div class="controls">
+                    <form:select path="jobSalary">
+                        <form:option value="Thỏa thuận">Thỏa thuận</form:option>
+                        <form:option value="3,000,000vnđ">3,000,000vnđ</form:option>
+                        <form:option value="4,000,000vnđ">4,000,000vnđ</form:option>
+                        <form:option value="5,000,000vnđ">5,000,000vnđ</form:option>
+                        <form:option value="6,000,000vnđ">6,000,000vnđ</form:option>
+                        <form:option value="7,000,000vnđ">7,000,000vnđ</form:option>
+                        <form:option value="8,000,000vnđ">8,000,000vnđ</form:option>
+                        <form:option value="9,000,000vnđ">9,000,000vnđ</form:option>
+                        <form:option value="10,000,000vnđ">10,000,000vnđ</form:option>
+                        <form:option value="11,000,000vnđ">11,000,000vnđ</form:option>
+                        <form:option value="12,000,000vnđ">12,000,000vnđ</form:option>
+                        <form:option value="13,000,000vnđ">13,000,000vnđ</form:option>
+                        <form:option value="14,000,000vnđ">14,000,000vnđ</form:option>
+                        <form:option value="15,000,000vnđ">15,000,000vnđ</form:option>
+                        <form:option value="17,000,000vnđ">17,000,000vnđ</form:option>
+                        <form:option value="20,000,000vnđ">20,000,000vnđ</form:option>
+                        <form:option value="25,000,000vnđ">25,000,000vnđ</form:option>
+                        <form:option value="30,000,000vnđ">30,000,000vnđ</form:option>
+                        <form:option value="50,000,000vnđ">50,000,000vnđ</form:option>
+                        <form:option value="Trên 50 triệu">Trên 50 triệu</form:option>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="jobSalary" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="jobMemberLevel">
+                <label class="control-label" for="jobMemberLevel">Cấp bậc</label>
+                <div class="controls">
+                    <form:select path="jobMemberLevel">
+                        <form:option value="Nhân viên chính thức">Nhân viên chính thức</form:option>
+                        <form:option value="Trưởng nhóm/Giám sát">Trưởng nhóm/Giám sát</form:option>
+                        <form:option value="Mới tốt nghiệp/Thực tập sinh">Mới tốt nghiệp/Thực tập sinh</form:option>
+                        <form:option value="Trưởng phòng">Trưởng phòng</form:option>
+                        <form:option value="Kỹ thuật viên/Kỹ sư">Kỹ thuật viên/Kỹ sư</form:option>
+                        <form:option value="Tư vấn/Trợ lý">Tư vấn/Trợ lý</form:option>
+                        <form:option value="Bán thời gian">Bán thời gian</form:option>
+                        <form:option value="Nhân viên thời vụ">Nhân viên thời vụ</form:option>
+                        <form:option value="Làm thêm ngoài giờ">Làm thêm ngoài giờ</form:option>
+                        <form:option value="Phó giám đốc">Phó giám đốc</form:option>
+                        <form:option value="Giám đốc">Giám đốc</form:option>
+                        <form:option value="Chuyên viên">Chuyên viên</form:option>
+                        <form:option value="Điều hành">Điều hành</form:option>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="jobMemberLevel" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="jobTimeWork">
+                <label class="control-label" for="jobTimeWork">Thời gian làm việc</label>
+                <div class="controls">
+                    <form:select path="jobTimeWork">
+                        <form:option value="Toàn thời gian cố định">Toàn thời gian cố định</form:option>
+                        <form:option value="Bán thời gian cố định">Bán thời gian cố định</form:option>
+                        <form:option value="Việc làm theo ca/Đổi ca">Việc làm theo ca/Đổi ca</form:option>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="jobTimeWork" /></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary">Tạo tin tuyển dụng</button>
+                    <c:out value=" "/>
+                    <button type="reset" class="btn">Nhập lại</button>
+                </div>
+            </div>
+        </form:form>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <spring:url value="/quy-dinh-thanh-vien.html" var="policy_url" />
+            Khi bạn đăng tin bạn đã đồng ý với các <a href="${policy_url}" title="Quên mật khẩu">quy định thành viên</a> của Mạng Tuyển Dụng
+        </div>
+        <script type="text/javascript">
+                <![CDATA[
+                    function collectFormData(fields) {
+                        var data = {};
+                        for (var i = 0; i < fields.length; i++) {
+                            var $item = $(fields[i]);
+                            data[$item.attr('name')] = $item.val();
+                        }
+                        return data;
+                    }
+				
+                    $(document).ready(function() {
+                        var $form = $('#create-job-form');
+                        $form.bind('submit', function(e) {
+                            // Ajax validation
+                            var $inputs = $form.find('.span8');
+                            var data = collectFormData($inputs);
+					
+                            $.post('${create_job_json_url}', data, function(response) {
+                                $form.find('.control-group').removeClass('error');
+                                $form.find('.help-inline').empty();
+                                $form.find('.alert').remove();
+						
+                                if (response.status == 'FAIL') {
+                                    for (var i = 0; i < response.errorMessageList.length; i++) {
+                                        var item = response.errorMessageList[i];
+                                        var $controlGroup = $('#' + item.fieldName);
+                                        $controlGroup.addClass('error');
+                                        $controlGroup.find('.help-inline').html(item.message);
+                                    }
+                                } else {
+                                    $form.unbind('submit');
+                                    $form.submit();
+                                }
+                            }, 'json');
+					
+                            e.preventDefault();
+                            return false;
+                        });
+                    });
+                ]]>
+        </script>
+    </util:panel>
+</div>

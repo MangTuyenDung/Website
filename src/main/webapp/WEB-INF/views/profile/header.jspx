@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="header" class="idProfile" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="profile_url" value="/thanh-vien.html"/>
+    <spring:url var="changepassword_url" value="/thanh-vien/doi-mat-khau.html"/>
+    <spring:url var="changepassword_json_url" value="/thanh-vien/doi-mat-khau/json"/>
+    <spring:url var="myapply_url" value="/thanh-vien/ho-so-ung-tuyen.html"/>
+    <spring:url var="myjob_url" value="/thanh-vien/tin-tuyen-dung.html"/>
+    <spring:url var="home_url" value="/"/>
+    <spring:url value="/resources/j_spring_security_logout" var="logout"/>
+    <spring:url var="banner" value="/resources/images/logo.png" />
+    
+    <script type="text/javascript">
+            <![CDATA[
+                function collectFormData(fields) {
+                    var data = {};
+                    for (var i = 0; i < fields.length; i++) {
+                        var $item = $(fields[i]);
+                        data[$item.attr('name')] = $item.val();
+                    }
+                    return data;
+                }
+				
+                $(document).ready(function() {
+                    var $form = $('#search-form');
+                    $form.bind('submit', function(e) {
+                        // Ajax validation
+                        var $inputs = $form.find('input');
+                        var data = collectFormData($inputs);
+					
+                        $.post('${search_json_url}', data, function(response) {
+                            $form.find('.control-group').removeClass('error');
+                            $form.find('.help-inline').empty();
+                            $form.find('.alert').remove();
+						
+                            if (response.status == 'FAIL') {
+                                for (var i = 0; i < response.errorMessageList.length; i++) {
+                                    var item = response.errorMessageList[i];
+                                    var $controlGroup = $('#' + item.fieldName);
+                                    $controlGroup.addClass('error');
+                                    $controlGroup.find('.help-inline').html(item.message);
+                                }
+                            } else {
+                                $form.unbind('submit');
+                                $form.submit();
+                            }
+                        }, 'json');
+					
+                        e.preventDefault();
+                        return false;
+                    });
+                });
+                $(document).ready(function() {
+                    var $form = $('#changepassword-form');
+                    $form.bind('submit', function(e) {
+                        // Ajax validation
+                        var $inputs = $form.find('input');
+                        var data = collectFormData($inputs);
+					
+                        $.post('${changepassword_json_url}', data, function(response) {
+                            $form.find('.control-group').removeClass('error');
+                            $form.find('.help-inline').empty();
+                            $form.find('.alert').remove();
+						
+                            if (response.status == 'FAIL') {
+                                for (var i = 0; i < response.errorMessageList.length; i++) {
+                                    var item = response.errorMessageList[i];
+                                    var $controlGroup = $('#' + item.fieldName);
+                                    $controlGroup.addClass('error');
+                                    $controlGroup.find('.help-inline').html(item.message);
+                                }
+                            } else {
+                                $form.unbind('submit');
+                                $form.submit();
+                            }
+                        }, 'json');
+					
+                        e.preventDefault();
+                        return false;
+                    });
+                });
+            ]]>
+    </script>
+    <!--#### Member search job ##########################################################################################################################-->
+    <div class="modal hide fade" style="width: 700px" id="memberSearchJob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h5 id="myModalLabel">Tìm việc làm mong muốn của bạn</h5>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <form:form id="search-form" class="form-search" modelAttribute="sform" method="POST" action="${search_url}">
+                <div class="control-group" id="stext">
+                    <c:out value="Tìm trong "/>
+                    <form:select path="slocation" style="width: 150px">
+                        <option value="all">Tất cả tỉnh thành</option>
+                        <form:options items="${locations}" itemValue="name" itemLabel="name"/>
+                    </form:select>
+                    <c:out value=" công việc "/>
+                    <div class="input-append">
+                        <form:input path="stext" class="search-query"/>
+                        <button type="submit" class="btn btn-primary">Tìm việc nhanh</button>
+                    </div>
+                    <span class="help-inline" style="padding-top: 10px;"><form:errors path="stext" /></span>
+                </div>
+            </form:form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+    <!--#### Add position ##########################################################################################################################-->
+    <div class="modal hide fade" style="width: 600px" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h5 id="myModalLabel">Thay đổi mật khẩu</h5>
+        </div>
+        <div class="modal-body">
+            <form:form class="form-horizontal" id="changepassword-form" modelAttribute="changePasswordForm" method="POST" action="${changepassword_url}">
+                <div class="control-group" id="oldPassword">
+                    <label class="control-label" for="inputOldPassword">Mật khẩu cũ</label>
+                    <div class="controls">
+                        <form:input path="oldPassword" type="password"/>
+                        <span class="help-inline"><form:errors path="oldPassword" /></span>
+                    </div>
+                </div>
+                <div class="control-group" id="newPassword">
+                    <label class="control-label" for="inputNewPassword">Mật khẩu mới</label>
+                    <div class="controls">
+                        <form:input path="newPassword" type="password"/>
+                        <span class="help-inline"><form:errors path="newPassword" /></span>
+                    </div>
+                </div>
+                <div class="control-group" id="againPassword">
+                    <label class="control-label" for="inputAgainPassword">Nhập lại mật khẩu</label>
+                    <div class="controls">
+                        <form:input path="againPassword" type="password"/>
+                        <span class="help-inline"><form:errors path="againPassword" /></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">Thay mật khẩu</button>
+                    </div>
+                </div>
+            </form:form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+    <!-- ########################################################################################################################## -->                
+    <!-- ########################################################################################################################## -->                
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <!--<li><a href="${home_url}" title="Tìm việc làm"><i class="icon-home icon-white"></i> Trang chủ</a></li>-->
+                <li><a href="${home_url}" title="Tìm việc làm thêm"><i class="icon-home icon-white"><!----></i> <img style="padding-left: 5px" src="${banner}" alt="Tìm việc làm thêm"/></a></li>
+                <li class="dropdown">
+                    <a href="#" id="profiles" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"><!----></i> Hồ sơ ứng viên <i class="caret"><!----></i></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="profiles">
+                        <li><a tabindex="-1" href="${profile_url}" title="Hồ sơ ứng viên">Hồ sơ ứng viên</a></li>
+                        <!--<li><a tabindex="-1" href="#">Việc làm đã ứng tuyển</a></li>-->
+                        <li class="divider"><!----></li>
+                        <!--<li><a tabindex="-1" href="#">Đăng một việc làm</a></li>-->
+                        <!--<li><a tabindex="-1" href="#">Quản lý việc làm</a></li>-->
+                        <li><a tabindex="-1" href="${logout}">Rời khỏi tài khoản</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" id="jobs" role="button" class="dropdown-toggle" data-toggle="dropdown">Việc làm <i class="caret"><!----></i></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="jobs">
+                        <li><a tabindex="-1" href="#memberSearchJob" role="button" data-toggle="modal" title="Tìm việc làm"><i class="icon-search"><!----></i> Tìm việc làm</a></li>
+                        <li><a tabindex="-1" href="${home_url}" role="button" data-toggle="modal" title="Danh sách việc làm">Danh sách việc làm</a></li>
+                        <li class="divider"><!----></li>
+                        <li><a tabindex="-1" href="${myapply_url}" title="Việc làm đã ứng tuyển">Việc làm đã ứng tuyển</a></li>
+                        <li class="divider"><!----></li>
+                        <li><a tabindex="-1" href="${myjob_url}" title="Tin tuyển dụng đã đăng">Tin tuyển dụng đã đăng</a></li>
+                        <li class="divider"><!----></li>
+                        <!--<li><a tabindex="-1" href="#">Đăng một việc làm</a></li>-->
+                        <!--<li><a tabindex="-1" href="#">Quản lý việc làm</a></li>-->
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" id="settings" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-wrench icon-white"><!----></i> Thông tin tài khoản <i class="caret"><!----></i></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="settings">
+                        <li><a tabindex="-1" href="#">Thông tin tài khoản</a></li>
+                        <li><a tabindex="-1" href="#changePassword" role="button" data-toggle="modal" title="Đổi mật khẩu">Đổi mật khẩu</a></li>
+                        <!--                        <li class="divider"></li>
+                                                <li><a tabindex="-1" href="#">Nâng cấp tài khoản</a></li>
+                                                <li><a tabindex="-1" href="#">Tìm ứng viên cao cấp</a></li>-->
+                    </ul>
+                </li>
+                <!--                <li class="dropdown">
+                                    <a href="#" id="friends" role="button" class="dropdown-toggle" data-toggle="dropdown">Kết bạn <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="friends">
+                                        <li><a tabindex="-1" href="#">Danh sach bạn bè</a></li>
+                                        <li><a tabindex="-1" href="#">Kết bạn</a></li>
+                                        <li class="divider"></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" id="groups" role="button" class="dropdown-toggle" data-toggle="dropdown">Nhóm <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="groups">
+                                        <li><a tabindex="-1" href="#">Nhóm của bạn</a></li>
+                                        <li><a tabindex="-1" href="#">Nhóm đã tham gia</a></li>
+                                        <li><a tabindex="-1" href="#">Danh sách nhóm</a></li>
+                                        <li><a tabindex="-1" href="#">Tạo nhóm mới</a></li>
+                                        <li class="divider"></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" id="inbox" role="button" class="dropdown-toggle" data-toggle="dropdown">Hòm thư <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="inbox">
+                                        <li><a tabindex="-1" href="#">Tin nhắn đến</a></li>
+                                        <li><a tabindex="-1" href="#">Gửi nhắn đến</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" id="company" role="button" class="dropdown-toggle" data-toggle="dropdown">Công ty <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="company">
+                                        <li><a tabindex="-1" href="#">Tìm công ty</a></li>
+                                        <li class="divider"></li>
+                                    </ul>
+                                </li>-->
+                <sec:authorize access="hasRole('ROLE_MANAGER')">
+                    <spring:url var="admin_member_url" value="/admin/account"/>
+                    <spring:url var="admin_apply_url" value="/admin/apply"/>
+                    <spring:url var="admin_jobs_url" value="/admin/jobs"/>
+                    <li class="dropdown">
+                        <a href="#" id="manager" role="button" class="dropdown-toggle" data-toggle="dropdown">Quản trị <i class="caret"><!----></i></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="manager">
+                            <li><a tabindex="-1" href="${admin_member_url}.html">Danh sách thành viên</a></li>
+                            <li><a tabindex="-1" href="${admin_apply_url}.html">Hồ sơ ứng viên</a></li>
+                            <li><a tabindex="-1" href="${admin_jobs_url}.html">Tin tuyển dụng</a></li>
+                            <li class="divider"><!----></li>
+                        </ul>
+                    </li>
+                </sec:authorize>
+            </ul>
+            <spring:url value="/dang-tin-tuyen-dung.html" var="create_job_url" />
+            <div class="pull-right">
+                <a href="${create_job_url}" class="btn btn-danger">Đăng tin tuyển dụng miễn phí</a>
+                <c:if test="${pageContext['request'].userPrincipal != null}">
+                    <spring:url value="/resources/j_spring_security_logout" var="logout"/>
+                    <c:out value=" "/>
+                    <a href="${logout}" class="btn btn-primary">
+                        Thoát
+                    </a>
+                </c:if>
+                <c:out value=" "/>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.CrawlRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findBy" resultType="CrawlDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, TITLE, DOMAIN,
+        COMPANY_NAME as companyName, 
+        COMPANY_OVERVIEW as companyOverview, 
+        COMPANY_ADDRESS as companyAddress, 
+        COMPANY_RANGE as companyRange, 
+        JOB_CATEGORY as jobCategory, 
+        JOB_LOCATION as jobLocation, 
+        JOB_TIME_WORK as jobTimeWork, 
+        JOB_MEMBER_LEVEL as jobMemberLevel, 
+        JOB_SALARY as jobSalary, 
+        JOB_AGE as jobAge, 
+        JOB_SEX as jobSex, 
+        JOB_OVERVIEW as jobOverview, 
+        JOB_EDUCATION_LEVEL as jobEducationLevel, 
+        JOB_EXPERIENCE_LEVEL as jobExperienceLevel, 
+        JOB_REQUIREMENT as jobRequirement, 
+        JOB_LANGUAGE as jobLanguage, 
+        JOB_CONTACT_DETAIL as jobContactDetail, 
+        JOB_CONTACT_NAME as jobContactName, 
+        JOB_CONTACT_ADDRESS as jobContactAddress, 
+        JOB_CONTACT_PERSON as jobContactPerson, 
+        JOB_CONTACT_PHONE as jobContactPhone, 
+        JOB_CONTACT_EMAIL as jobContactEmail,
+        STATUS as status,
+        JOB_CREATED as created,
+        JOB_CREATER as creater,
+        JOB_UPDATED as updated,
+        JOB_UPDATER as updater,
+        JOB_PUBLISHED as published, 
+        JOB_EXPIRED as expired
+        FROM job_crawl
+        <if test="domain != null">
+            WHERE DOMAIN = #{domain}
+        </if>
+        ORDER BY JOB_CREATED DESC
+        LIMIT #{start},#{end}
+    </select>
+    
+    <select id="findByUsername" resultType="CrawlDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, TITLE, DOMAIN,
+        COMPANY_NAME as companyName, 
+        COMPANY_OVERVIEW as companyOverview, 
+        COMPANY_ADDRESS as companyAddress, 
+        COMPANY_RANGE as companyRange, 
+        JOB_CATEGORY as jobCategory, 
+        JOB_LOCATION as jobLocation, 
+        JOB_TIME_WORK as jobTimeWork, 
+        JOB_MEMBER_LEVEL as jobMemberLevel, 
+        JOB_SALARY as jobSalary, 
+        JOB_AGE as jobAge, 
+        JOB_SEX as jobSex, 
+        JOB_OVERVIEW as jobOverview, 
+        JOB_EDUCATION_LEVEL as jobEducationLevel, 
+        JOB_EXPERIENCE_LEVEL as jobExperienceLevel, 
+        JOB_REQUIREMENT as jobRequirement, 
+        JOB_LANGUAGE as jobLanguage, 
+        JOB_CONTACT_DETAIL as jobContactDetail, 
+        JOB_CONTACT_NAME as jobContactName, 
+        JOB_CONTACT_ADDRESS as jobContactAddress, 
+        JOB_CONTACT_PERSON as jobContactPerson, 
+        JOB_CONTACT_PHONE as jobContactPhone, 
+        JOB_CONTACT_EMAIL as jobContactEmail,
+        STATUS as status,
+        JOB_CREATED as created,
+        JOB_CREATER as creater,
+        JOB_UPDATED as updated,
+        JOB_UPDATER as updater,
+        JOB_PUBLISHED as published, 
+        JOB_EXPIRED as expired
+        FROM job_crawl
+        WHERE 1 = 1
+        <if test="domain != null">
+            AND DOMAIN = #{domain}
+        </if>
+        AND JOB_CREATER = #{username}
+        ORDER BY JOB_CREATED DESC
+        LIMIT #{start},#{end}
+    </select>
+    
+    <select id="findById" resultType="CrawlDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, TITLE, DOMAIN,
+        COMPANY_NAME as companyName, 
+        COMPANY_OVERVIEW as companyOverview, 
+        COMPANY_ADDRESS as companyAddress, 
+        COMPANY_RANGE as companyRange, 
+        JOB_CATEGORY as jobCategory, 
+        JOB_LOCATION as jobLocation, 
+        JOB_TIME_WORK as jobTimeWork, 
+        JOB_MEMBER_LEVEL as jobMemberLevel, 
+        JOB_SALARY as jobSalary, 
+        JOB_AGE as jobAge, 
+        JOB_SEX as jobSex, 
+        JOB_OVERVIEW as jobOverview, 
+        JOB_EDUCATION_LEVEL as jobEducationLevel, 
+        JOB_EXPERIENCE_LEVEL as jobExperienceLevel, 
+        JOB_REQUIREMENT as jobRequirement, 
+        JOB_LANGUAGE as jobLanguage, 
+        JOB_CONTACT_DETAIL as jobContactDetail, 
+        JOB_CONTACT_NAME as jobContactName, 
+        JOB_CONTACT_ADDRESS as jobContactAddress, 
+        JOB_CONTACT_PERSON as jobContactPerson, 
+        JOB_CONTACT_PHONE as jobContactPhone, 
+        JOB_CONTACT_EMAIL as jobContactEmail, 
+        STATUS as status,
+        JOB_CREATED as created,
+        JOB_CREATER as creater,
+        JOB_UPDATED as updated,
+        JOB_UPDATER as updater,
+        JOB_PUBLISHED as published, 
+        JOB_EXPIRED as expired
+        FROM job_crawl
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="countBy" resultType="long" flushCache="false" useCache="true">
+        SELECT count(*) 
+        FROM job_crawl
+        <if test="domain != null">
+            WHERE DOMAIN = #{domain}
+        </if>
+    </select>
+    
+    <select id="countByUsername" resultType="long" flushCache="false" useCache="true">
+        SELECT count(*) 
+        FROM job_crawl
+        WHERE 1 = 1
+        <if test="domain != null">
+            AND DOMAIN = #{domain}
+        </if>
+        AND JOB_CREATER = #{username}
+    </select>
+    
+    <insert id="save" parameterType="CrawlDomain" flushCache="true">
+        INSERT INTO job_crawl
+        (ID, TITLE, JOB_CATEGORY, JOB_OVERVIEW, JOB_REQUIREMENT, JOB_EDUCATION_LEVEL, JOB_EXPERIENCE_LEVEL, JOB_SALARY, JOB_MEMBER_LEVEL, JOB_TIME_WORK, JOB_CREATER)
+        VALUES
+        (#{id},#{title},#{jobCategory},#{jobOverview},#{jobRequirement},#{jobEducationLevel},#{jobExperienceLevel},#{jobSalary},#{jobMemberLevel},#{jobTimeWork},#{creater})
+    </insert>
+    <update id="update" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        TITLE = #{title},
+        COMPANY_NAME = #{companyName},
+        COMPANY_OVERVIEW = #{companyOverview},
+        COMPANY_ADDRESS = #{companyAddress},
+        COMPANY_RANGE = #{companyRange},
+        JOB_CATEGORY = #{jobCategory},
+        JOB_LOCATION = #{jobLocation},
+        JOB_TIME_WORK = #{jobTimeWork},
+        JOB_MEMBER_LEVEL = #{jobMemberLevel},
+        JOB_SALARY = #{jobSalary},
+        JOB_AGE = #{jobAge},
+        JOB_SEX = #{jobSex},
+        JOB_OVERVIEW = #{jobOverview},
+        JOB_EDUCATION_LEVEL = #{jobEducationLevel},
+        JOB_EXPERIENCE_LEVEL = #{jobExperienceLevel},
+        JOB_REQUIREMENT = #{jobRequirement},
+        JOB_LANGUAGE = #{jobLanguage},
+        JOB_CONTACT_DETAIL = #{jobContactDetail},
+        JOB_CONTACT_NAME = #{jobContactName},
+        JOB_CONTACT_ADDRESS = #{jobContactAddress},
+        JOB_CONTACT_PERSON = #{jobContactPerson},
+        JOB_CONTACT_PHONE = #{jobContactPhone},
+        JOB_CONTACT_EMAIL = #{jobContactEmail},
+        JOB_UPDATED = #{updated},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateCompany" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        COMPANY_NAME = #{companyName},
+        COMPANY_OVERVIEW = #{companyOverview},
+        COMPANY_ADDRESS = #{companyAddress},
+        COMPANY_RANGE = #{companyRange},
+        JOB_UPDATED = #{updated},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateCategory" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        JOB_CATEGORY = #{jobCategory},
+        JOB_UPDATED = #{updated},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateLocation" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        JOB_LOCATION = #{jobLocation},
+        JOB_UPDATED = #{updated},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateJob" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        JOB_LOCATION = #{jobLocation},
+        JOB_TIME_WORK = #{jobTimeWork},
+        JOB_MEMBER_LEVEL = #{jobMemberLevel},
+        JOB_SALARY = #{jobSalary},
+        JOB_AGE = #{jobAge},
+        JOB_SEX = #{jobSex},
+        JOB_OVERVIEW = #{jobOverview},
+        JOB_EDUCATION_LEVEL = #{jobEducationLevel},
+        JOB_EXPERIENCE_LEVEL = #{jobExperienceLevel},
+        JOB_REQUIREMENT = #{jobRequirement},
+        JOB_LANGUAGE = #{jobLanguage},
+        JOB_UPDATED = #{updated},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateContact" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        JOB_CONTACT_DETAIL = #{jobContactDetail},
+        JOB_CONTACT_NAME = #{jobContactName},
+        JOB_CONTACT_ADDRESS = #{jobContactAddress},
+        JOB_CONTACT_PERSON = #{jobContactPerson},
+        JOB_CONTACT_PHONE = #{jobContactPhone},
+        JOB_CONTACT_EMAIL = #{jobContactEmail},
+        JOB_UPDATED = #{updated},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+    <update id="publish" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        STATUS = 1,
+        JOB_UPDATED = #{updated},
+        JOB_PUBLISHED = #{published},
+        JOB_EXPIRED = #{expired},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+    <update id="vip" parameterType="CrawlDomain" flushCache="true">
+        UPDATE job_crawl
+        SET
+        BOOST = #{boost},
+        STATUS = #{status},
+        JOB_UPDATED = #{updated},
+        JOB_UPDATER = #{updater}
+        WHERE ID = #{id}
+    </update>
+</mapper>

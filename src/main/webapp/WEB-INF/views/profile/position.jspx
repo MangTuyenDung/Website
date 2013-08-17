@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="skill_url" value="/thanh-vien.html"/>
+    <spring:url var="position_url" value="/thanh-vien/kinh-nghiem.html"/>
+    <spring:url var="position_json_url" value="/thanh-vien/kinh-nghiem/json"/>
+    <util:panel id="createMember" title="Kinh nghiệm làm việc của bạn">
+        <form:form class="form-horizontal" id="add-position-form" modelAttribute="positionForm" method="POST" action="${position_url}">
+            <div class="tab-edit-prf clearfix" style="margin-bottom: 20px;">
+                <div class="tab">
+                    <ul>
+                        <li><a href="#"><span>1</span>Thông tin cơ bản</a></li>
+                        <li><a class="active" href="#"><span>2</span>Hồ sơ chi tiết</a></li>
+                        <li><a href="#"><span>3</span>Hoàn thành</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="control-group" id="title">
+                <label class="control-label" for="inputTitle">Chức danh</label>
+                <div class="controls">
+                    <form:input path="title" class="span6" placeholder="Chức danh công việc"/>
+                    <span class="help-inline"><form:errors path="title" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="companyName">
+                <label class="control-label" for="inputCompanyName">Công ty</label>
+                <div class="controls">
+                    <form:input path="companyName" class="span6" placeholder="Tên công ty đã làm"/>
+                    <span class="help-inline"><form:errors path="companyName" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="address">
+                <label class="control-label" for="inputAddress">Địa chỉ</label>
+                <div class="controls">
+                    <form:input path="address" class="span6"/>
+                    <span class="help-inline"><form:errors path="address" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="currentHere">
+                <label class="control-label" for="inputCurrentHere">Khoảng thời gian</label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <form:checkbox path="currentHere"/> Tôi đang làm tại đây
+                    </label>
+                    Tháng
+                    <form:select path="startDateMonth" style="width:60px">
+                        <c:forEach var="i" begin="1" end="12">
+                            <form:option value="${i}">${i}</form:option>
+                        </c:forEach>
+                    </form:select>
+                    <c:out value=" "/>
+                    <form:input path="startDateYear" placeholder="Năm" style="width:50px" />
+                    đến 
+                    <form:select path="endDateMonth" style="width:60px">
+                        <c:forEach var="i" begin="1" end="12">
+                            <form:option value="${i}">${i}</form:option>
+                        </c:forEach>
+                    </form:select>
+                    <c:out value=" "/>
+                    <form:input path="endDateYear" placeholder="Năm" style="width:50px" />
+                    <span class="help-inline"><form:errors path="currentHere" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="description">
+                <label class="control-label" for="inputTitle">Kinh nghiệm bản thân</label>
+                <div class="controls">
+                    <form:textarea path="description" class="span6" placeholder="Kinh nghiệm bản thân" rows="7"/>
+                    <span class="help-inline"><form:errors path="description" /></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <form:hidden path="id"/>
+                    <button type="submit" class="btn btn-primary">Lưu kinh nghiệm</button>
+                    <c:out value=" hoặc "/>
+                    <a href="${skill_url}" title="Bỏ qua">Bỏ qua</a>
+                </div>
+            </div>
+            <c:if test="${not empty id}">
+                <div class="control-group">
+                    <div class="controls">
+                        <spring:url var="position_delete_url" value="/thanh-vien/kinh-nghiem/do"/>
+                        <a href="${position_delete_url}/${id}" rel="popover" class="btn btn-large btn-danger" data-content="Bạn có chắc chắn muốn bỏ kinh nghiệm này?" data-original-title="Kinh nghiệm">Xóa bỏ kinh nghiệm này</a>
+                    </div>
+                </div>
+            </c:if>
+        </form:form>
+        <script type="text/javascript">
+                <![CDATA[
+                    function collectFormData(fields) {
+                        var data = {};
+                        for (var i = 0; i < fields.length; i++) {
+                            var $item = $(fields[i]);
+                            data[$item.attr('name')] = $item.val();
+                        }
+                        return data;
+                    }
+				
+                    $(document).ready(function() {
+                        var $form = $('#add-position-form');
+                        $form.bind('submit', function(e) {
+                            // Ajax validation
+                            var $inputs = $form.find('input');
+                            var data = collectFormData($inputs);
+					
+                            $.post('${position_json_url}', data, function(response) {
+                                $form.find('.control-group').removeClass('error');
+                                $form.find('.help-inline').empty();
+                                $form.find('.alert').remove();
+						
+                                if (response.status == 'FAIL') {
+                                    for (var i = 0; i < response.errorMessageList.length; i++) {
+                                        var item = response.errorMessageList[i];
+                                        var $controlGroup = $('#' + item.fieldName);
+                                        $controlGroup.addClass('error');
+                                        $controlGroup.find('.help-inline').html(item.message);
+                                    }
+                                } else {
+                                    $form.unbind('submit');
+                                    $form.submit();
+                                }
+                            }, 'json');
+					
+                            e.preventDefault();
+                            return false;
+                        });
+                    });
+                ]]>
+        </script>
+    </util:panel>
+</div>

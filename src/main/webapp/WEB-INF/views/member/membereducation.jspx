@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:mtd="http://mangtuyendung.vn/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:ckeditor="http://ckeditor.com"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="education_url" value="/thanh-vien/bang-cap-chung-chi"/>
+    <spring:url var="education_delete_url" value="/thanh-vien/bang-cap-chung-chi/do"/>
+    <spring:url var="delete_url" value="/resources/images/delete.png"/>
+    <div class="block">
+        <h2 class="bl-title">
+            <strong>Bằng cấp &amp; chứng chỉ</strong>
+        </h2>
+    </div>
+
+    <c:forEach items="${educations}" var="item" varStatus="rowCounter">
+        <div class="edit-CV" style="margin-left: 20px;">
+            <div class="corner"><i class="icon-corner"><!----></i></div>
+            <div class="content clearfix">
+                <div class="span3 fl">
+                    ${item.startYear} đến ${item.endYear}
+                </div>
+                <div class="span8 fr">
+                    <strong>${item.schoolName}</strong>
+                    <br/>
+                    ${item.schoolFieldOfStudy}
+                </div>
+                <div class="clearfix"><!----></div>
+                <p>${mtd:escapeBr(item.description)}</p>
+            </div>
+        </div>
+    </c:forEach>
+</div>

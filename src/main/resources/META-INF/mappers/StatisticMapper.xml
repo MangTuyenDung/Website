@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadoopvietnam.persistence.repositories.statistics.StatisticRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findBy" resultType="StatisticDomain" flushCache="false" useCache="true">
+        SELECT 
+        nstat_id as id, 
+        IP, 
+        session, 
+        browser, 
+        version, 
+        count, 
+        system, 
+        ref_id as refererId, 
+        device, 
+        tstamp as created 
+        FROM nstatistics
+        WHERE
+        IP = #{IP}
+        AND (
+        DATE_FORMAT( tstamp, '%m-%d-%Y %H:%i:%s') = DATE_FORMAT( 
+        CURRENT_TIMESTAMP, '%m-%d-%Y %H:%i:%s')
+        )
+    </select>
+    
+    <insert id="save" parameterType="StatisticDomain" flushCache="true">
+        INSERT INTO nstatistics
+        (nstat_id, IP, session, browser, version, count, system, ref_id, device, tstamp)
+        VALUES
+        (#{id}, #{IP}, #{session}, #{browser}, #{version}, #{count}, #{system}, #{refererId}, #{device}, #{created})
+    </insert>
+    
+    <update id="update" parameterType="StatisticDomain" flushCache="true">
+        UPDATE nstatistics
+        SET count = count + 1
+        WHERE nstat_id = #{id}
+    </update>
+    
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.ApplyRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findById" resultType="ApplyDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID,
+        USERNAME,
+        JOB_ID as jobId,
+        TITLE,
+        DESCRIPTION,
+        IS_VIEWED as isViewed,
+        CREATED
+        FROM job_apply
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="findByUsername" resultType="ApplyDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID,
+        USERNAME,
+        JOB_ID as jobId,
+        TITLE,
+        DESCRIPTION,
+        IS_VIEWED as isViewed,
+        CREATED
+        FROM job_apply
+        WHERE USERNAME = #{username}
+        ORDER BY CREATED DESC
+        LIMIT #{start}, #{end}
+    </select>
+    
+    <select id="findBy" resultType="ApplyDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID,
+        USERNAME,
+        JOB_ID as jobId,
+        TITLE,
+        DESCRIPTION,
+        IS_VIEWED as isViewed,
+        CREATED
+        FROM job_apply
+        ORDER BY CREATED DESC
+        LIMIT #{start}, #{end}
+    </select>
+    
+    <select id="count" resultType="long" flushCache="false" useCache="true">
+        SELECT count(*)
+        FROM job_apply
+    </select>
+    
+    <select id="countByUsername" resultType="long" flushCache="false" useCache="true">
+        SELECT count(*)
+        FROM job_apply
+        WHERE USERNAME = #{username}
+    </select>
+    
+    <insert id="save" parameterType="ApplyDomain" flushCache="true">
+        INSERT INTO job_apply
+        (USERNAME, JOB_ID, TITLE, DESCRIPTION, IS_VIEWED, CREATED)
+        VALUES
+        (#{username},#{jobId},#{title},#{description},#{isViewed},#{created})
+    </insert>
+</mapper>

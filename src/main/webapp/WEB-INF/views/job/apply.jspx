@@ -1,0 +1,159 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url value="/" var="home_url" />
+    <spring:url value="/thanh-vien/nop-ho-so-tuyen-dung" var="apply_url" />
+    <spring:url value="/thanh-vien/nop-ho-so-tuyen-dung/json" var="apply_json_url" />
+    <spring:url value="/tim-viec-lam-${fn:toLowerCase(job.jobLocation.get(0))}" var="breadcrumb_location_url" />
+    <spring:url value="/viec-lam-tai-${fn:toLowerCase(job.jobCategory.get(0))}" var="breadcrumb_category_url" />
+    <center class="itemscope"><h1 class="text-success" style="font-size: 20px">${job.title} - ${job.companyName}</h1></center>
+    <div class="breadcrumb">
+        <li>
+            <a title="Mạng tuyển dụng" href="${home_url}">
+                Mạng tuyển dụng
+            </a>
+        </li>
+        »
+        <li>
+            <util:category category="${job.jobCategory.get(0)}" title="Tìm việc làm"/> 
+        </li>   
+        »
+        <li>
+            <util:location location="${job.jobLocation.get(0)}" title="Việc làm tại"/>
+        </li>
+    </div>
+    <div class="itemscope">
+        <util:breadcrumb title="Tìm việc làm ${job.jobCategory.get(0)}" label="Tìm việc làm ${job.jobCategory.get(0)}"/>
+        <util:breadcrumb title="Việc làm tại ${job.jobLocation.get(0)}" label="Việc làm tại ${job.jobLocation.get(0)}"/>
+    </div>
+    <util:panel id="apply" title="Nộp hồ sơ trực tuyến">
+        <div class="itemscope">
+            <h1>Nộp hồ sơ tuyển dụng trực tuyến</h1>
+        </div>
+        <center>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <span class="text-info"><b>Bạn đang ứng tuyển vào vị trí ${job.title}</b></span>
+                <br/>
+                <span class="text-error">Thông tin tiêu đề hồ sơ và nội dung của đơn xin việc sẽ được gửi tới nhà tuyển dụng.</span>
+            </div>
+        </center>
+        <form:form id="add-apply-form" modelAttribute="applyForm" action="${apply_url}" class="form-horizontal" method="POST">
+            <div class="control-group" id="title">
+                <label class="control-label" for="inputTitle">Tiêu đề hồ sơ</label>
+                <div class="controls">
+                    <form:input path="title" class="span8"/>
+                    <span class="help-inline"><form:errors path="title" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="description">
+                <label class="control-label" for="inputDescription">Đơn xin việc</label>
+                <div class="controls">
+                    <form:textarea path="description" class="span8" rows="15"/>
+                    <span class="help-inline"><form:errors path="description" /></span>
+                </div>
+            </div>
+            <c:choose>
+                <c:when test="${pageContext['request'].userPrincipal == null}">
+                    <center>
+                        <div class="alert alert-error">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            Bạn cần phải
+                            <c:out value=" "/>
+                            <spring:url value="/dang-ky-thanh-vien.html" var="register_url" />
+                            <spring:url value="/login" var="login_url" />
+                            <a href="${register_url}" class="btn btn-danger" title="Đăng ký thành viên">Đăng ký thành viên</a>
+                            <c:out value=" hoặc "/>
+                            <a href="${login_url}" class="btn btn-primary" title="Đăng nhập">Đăng nhập</a>
+                            <c:out value=" "/>
+                            để nộp hồ sơ trực tuyến.
+                            <p/>
+                            <p/>
+                            <span class="text-success">Bạn cần phải tạo CV trên Mạng Tuyển Dụng.</span> <p/> 
+                        </div>
+                    </center>
+                </c:when>
+                <c:otherwise>
+                    <spring:url value="/thanh-vien.html" var="cv_url" />
+                    <spring:url value="/thanh-vien/${username}" var="mycv_url" />
+                    <center>
+                        <span class="text-error">Khi bạn chọn nộp hồ sơ. Hệ thống sẽ đính kèm CV của bạn tạo trên Mạng Tuyển Dụng.</span> <p/> 
+                        <br/>
+                        <a href="${mycv_url}" target="_blank" title="Xem trước hồ sơ ứng viên">Xem trước hồ sơ của bạn.</a>  Nếu chưa tạo hồ sơ bạn cần <a href="${cv_url}" target="_blank" title="Tạo hồ sơ ứng viên">tạo hồ sơ ứng viên</a> trên Mạng Tuyển Dụng trước khi nộp.
+                    </center>
+                    <div class="control-group">
+                        <div class="controls">
+                            <form:hidden path="jobId"/>
+                            <button type="submit" class="btn btn-primary">Nộp hồ sơ</button>
+                            <c:out value=" "/>
+                            <button type="reset" class="btn">Nhập lại</button>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>    
+        </form:form>
+    </util:panel>
+    <div class="breadcrumb">
+        <li>
+            <a title="Mạng tuyển dụng" href="${home_url}">
+                Mạng tuyển dụng
+            </a>
+        </li>
+        »
+        <li>
+            <util:category category="${job.jobCategory.get(0)}" title="Tìm việc làm"/> 
+        </li>   
+        »
+        <li>
+            <util:location location="${job.jobLocation.get(0)}" title="Việc làm tại"/>
+        </li>
+    </div>
+    <script type="text/javascript">
+            <![CDATA[
+                function collectFormData(fields) {
+                    var data = {};
+                    for (var i = 0; i < fields.length; i++) {
+                        var $item = $(fields[i]);
+                        data[$item.attr('name')] = $item.val();
+                    }
+                    return data;
+                }
+				
+                $(document).ready(function() {
+                    var $form = $('#add-apply-form');
+                    $form.bind('submit', function(e) {
+                        // Ajax validation
+                        var $inputs = $form.find('input');
+                        var data = collectFormData($inputs);
+					
+                        $.post('${apply_json_url}', data, function(response) {
+                            $form.find('.control-group').removeClass('error');
+                            $form.find('.help-inline').empty();
+                            $form.find('.alert').remove();
+						
+                            if (response.status == 'FAIL') {
+                                for (var i = 0; i < response.errorMessageList.length; i++) {
+                                    var item = response.errorMessageList[i];
+                                    var $controlGroup = $('#' + item.fieldName);
+                                    $controlGroup.addClass('error');
+                                    $controlGroup.find('.help-inline').html(item.message);
+                                }
+                            } else {
+                                $form.unbind('submit');
+                                $form.submit();
+                            }
+                        }, 'json');
+					
+                        e.preventDefault();
+                        return false;
+                    });
+                });
+            ]]>
+    </script>
+</div>

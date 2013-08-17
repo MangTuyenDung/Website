@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="null" name="job/view">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/view.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="error" name="job/choice">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/choice.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="error" name="job/step1">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/step-1-create.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="error" name="job/step2">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/step-2-category.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="error" name="job/step2-1">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/step-2-location.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="error" name="job/step3">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/step-3-company.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="error" name="job/step4">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/step-4-contact.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="error" name="job/finish">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/step-5-finish.jspx" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/job/header.jspx" />
+    </definition>
+    <definition extends="info" name="member/apply">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/apply.jspx" />
+    </definition>
+    <definition extends="info" name="member/job">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/job.jspx" />
+    </definition>
+    <definition extends="info" name="member/myapplies">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/myapplies.jspx" />
+    </definition>
+    <definition extends="info" name="member/myjobs">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/myjobs.jspx" />
+    </definition>
+    <definition extends="null" name="job/successapply">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/job/successapply.jspx" />
+    </definition>
+</tiles-definitions>

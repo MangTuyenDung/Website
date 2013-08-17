@@ -1,0 +1,79 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="search_url" value="/tim-viec-lam"/>
+    <spring:url var="search_json_url" value="/tim-viec-lam/json"/>
+    <div id="search" class="navbar">
+        <div class="navbar-inner">
+            <center>
+                <div style="padding-top: 20px;">
+                    <form:form id="search-form" class="form-search" modelAttribute="sform" method="POST" action="${search_url}">
+                        <div class="control-group" id="stext">
+                            <c:out value="Tìm trong "/>
+                            <form:select path="slocation">
+                                <option value="all">Tất cả tỉnh thành</option>
+                                <form:options items="${locations}" itemValue="name" itemLabel="name"/>
+                            </form:select>
+                            <c:out value=" công việc "/>
+                            <div class="input-append">
+                                <form:input path="stext" class="span4 search-query"/>
+                                <button type="submit" class="btn btn-primary">Tìm việc nhanh</button>
+                            </div>
+                            <span class="help-inline" style="padding-top: 10px;"><form:errors path="stext" /></span>
+                        </div>
+
+                    </form:form>
+                </div>
+            </center>
+        </div>
+        <script type="text/javascript">
+                <![CDATA[
+                    function collectFormData(fields) {
+                        var data = {};
+                        for (var i = 0; i < fields.length; i++) {
+                            var $item = $(fields[i]);
+                            data[$item.attr('name')] = $item.val();
+                        }
+                        return data;
+                    }
+				
+                    $(document).ready(function() {
+                        var $form = $('#search-form');
+                        $form.bind('submit', function(e) {
+                            // Ajax validation
+                            var $inputs = $form.find('input');
+                            var data = collectFormData($inputs);
+					
+                            $.post('${search_json_url}', data, function(response) {
+                                $form.find('.control-group').removeClass('error');
+                                $form.find('.help-inline').empty();
+                                $form.find('.alert').remove();
+						
+                                if (response.status == 'FAIL') {
+                                    for (var i = 0; i < response.errorMessageList.length; i++) {
+                                        var item = response.errorMessageList[i];
+                                        var $controlGroup = $('#' + item.fieldName);
+                                        $controlGroup.addClass('error');
+                                        $controlGroup.find('.help-inline').html(item.message);
+                                    }
+                                } else {
+                                    $form.unbind('submit');
+                                    $form.submit();
+                                }
+                            }, 'json');
+					
+                            e.preventDefault();
+                            return false;
+                        });
+                    });
+                ]]>
+        </script>
+    </div>
+</div>

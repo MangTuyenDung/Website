@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.member.JobEducationRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+    <select id="findById" resultType="JobEducationDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID,
+        PROFILE_ID as profileId,
+        SCHOOL_NAME as schoolName,
+        SCHOOL_FIELD_OF_STUDY as schoolFieldOfStudy,
+        START_YEAR as startYear,
+        END_YEAR as endYear,
+        DESCRIPTION, CREATED, UPDATED
+        FROM job_education
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="findByProfileId" resultType="JobEducationDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID,
+        PROFILE_ID as profileId,
+        SCHOOL_NAME as schoolName,
+        SCHOOL_FIELD_OF_STUDY as schoolFieldOfStudy,
+        START_YEAR as startYear,
+        END_YEAR as endYear,
+        DESCRIPTION, CREATED, UPDATED
+        FROM job_education
+        WHERE PROFILE_ID = #{profileId}
+    </select>
+    
+    <insert id="save" parameterType="JobEducationDomain" flushCache="true">
+        INSERT INTO job_education
+        (PROFILE_ID, SCHOOL_NAME, SCHOOL_FIELD_OF_STUDY, START_YEAR, END_YEAR, DESCRIPTION, CREATED)
+        VALUES
+        (#{profileId},#{schoolName},#{schoolFieldOfStudy},#{startYear},#{endYear},#{description},#{created})
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+    
+    <update id="update" flushCache="true">
+        UPDATE job_education
+        SET
+        SCHOOL_NAME = #{schoolName},
+        SCHOOL_FIELD_OF_STUDY = #{schoolFieldOfStudy},
+        START_YEAR = #{startYear},
+        END_YEAR = #{endYear},
+        DESCRIPTION = #{description},
+        UPDATED = #{updated}
+        WHERE ID = #{id}
+        AND PROFILE_ID = #{profileId}
+    </update>
+    
+    <delete id="delete" flushCache="true">
+        DELETE FROM job_education 
+        WHERE ID = #{id}
+        AND PROFILE_ID = #{profileId}
+    </delete>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.CrawlAccountRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findById" resultType="CrawlAccountDomain" flushCache="false" useCache="true">
+        SELECT ID, PREFERENCE_ID as preferenceId, DOMAIN, EMAIL, MOBILE, PREFERENCE_MOBILE as preferenceMobile, IS_CREATED as isCreated, CREATED
+        FROM job_account
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="countBy" resultType="long" flushCache="false" useCache="true">
+        SELECT count(*) 
+        FROM job_account
+    </select>
+    
+    <insert id="save" parameterType="CrawlAccountDomain" flushCache="true">
+        INSERT INTO job_account
+        (PREFERENCE_ID, DOMAIN, EMAIL, PREFERENCE_MOBILE, MOBILE)
+        VALUES
+        (#{preferenceId},#{domain},#{email},#{preferenceMobile},#{mobile})
+    </insert>
+</mapper>

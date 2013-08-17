@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <sec:authorize access="hasRole('ROLE_MANAGER')">
+            <menu:category id="c_user" z="+l+uTi5AIPpdgfc7whLR5luw7eU=" href="#c_user"
+                           label="Thông tin tài khoản">
+                <sec:authorize access="hasRole('ROLE_MANAGER_CREATE')">
+                    <menu:item id="i_user_new" label="Thêm tài khoản"
+                               url="/service/user?form" z="sZsqwgsqHnXADErSf0DejwLvVYM=" />
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_MANAGER_EDIT')">
+                    <menu:item id="i_user_new" label="Đổi mật khẩu"
+                               url="/protected/resetpassword" z="jWYHYqbX/oDcUde2y1TEbIC0YAI=" />
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_MANAGER_VIEW')">
+                    <menu:item id="i_user_list"
+                               label="Tài khoản đang hoạt động"
+                               url="/service/user/true?page=1&amp;size=${empty param.size ? 30 : param.size}"
+                               z="jWYHYqbX/oDcUde2y1TEbIC0YAI=" />
+                    <menu:item id="i_user_list" label="Tài khoản tạm khóa"
+                               url="/service/user/false?page=1&amp;size=${empty param.size ? 30 : param.size}"
+                               z="jWYHYqbX/oDcUde2y1TEbIC0YAI=" />
+                </sec:authorize>
+            </menu:category>
+        </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_MANAGER')">
+            <menu:category id="c_request" href="#c_request" label="Quản lý yêu cầu">
+                <sec:authorize access="hasRole('ROLE_MANAGER_CREATE')">
+                    <menu:item id="i_recreate_new" label="Tạo một yêu cầu"
+                               url="/request?form" z="sZsqwgsqHnXADErSf0DejwLvVYM=" />
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_MANAGER_VIEW')">
+                    <menu:item id="i_requeue_list" label="Yêu cầu chờ xử lý"
+                               url="/request/queue?page=1&amp;size=${empty param.size ? 30 : param.size}"/>
+                    <menu:item id="i_refinished_list" label="Yêu cầu đã xử lý"
+                               url="/request/finish?page=1&amp;size=${empty param.size ? 30 : param.size}"/>
+                </sec:authorize>
+            </menu:category>
+        </sec:authorize>
+    </menu:menu>    
+</div>

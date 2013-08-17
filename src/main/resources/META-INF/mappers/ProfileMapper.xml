@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.member.ProfileRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findById" resultType="ProfileDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID,
+        USER_ID as userId,
+        RESUME_OVERVIEW as resumeOverview,
+        PERSON_NAME as personName,
+        PERSON_BIRTHDAY as personBirthDay,
+        PERSON_SEX as personSex,
+        PERSON_MOBILE as personMobile,
+        PERSON_MARRIED as personMarried,
+        PERSON_ADDRESS as personAddress,
+        CURRENT_TITLE as currentTitle,
+        CURRENT_COMPANY as currentCompany,
+        CREATED,
+        UPDATED
+        FROM profiles
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="findByUserId" resultType="ProfileDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID,
+        USER_ID as userId,
+        RESUME_OVERVIEW as resumeOverview,
+        PERSON_NAME as personName,
+        PERSON_BIRTHDAY as personBirthDay,
+        PERSON_SEX as personSex,
+        PERSON_MOBILE as personMobile,
+        PERSON_MARRIED as personMarried,
+        PERSON_ADDRESS as personAddress,
+        CURRENT_TITLE as currentTitle,
+        CURRENT_COMPANY as currentCompany,
+        CREATED,
+        UPDATED
+        FROM profiles
+        WHERE USER_ID = #{userId}
+        LIMIT 0,1
+    </select>
+    
+    <insert id="save" parameterType="ProfileDomain" flushCache="true">
+        INSERT INTO profiles
+        (USER_ID, RESUME_OVERVIEW, PERSON_NAME, PERSON_SEX, PERSON_MARRIED, PERSON_MOBILE, CREATED)
+        VALUES
+        (#{userId},#{resumeOverview},#{personName},#{personSex},#{personMarried},#{personMobile},#{created})
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+    
+    <update id="update" parameterType="ProfileDomain" flushCache="true">
+        UPDATE profiles
+        SET 
+        RESUME_OVERVIEW = #{resumeOverview}, 
+        PERSON_NAME = #{personName},
+        PERSON_BIRTHDAY = #{personBirthDay},
+        PERSON_SEX = #{personSex},
+        PERSON_MOBILE = #{personMobile},
+        PERSON_MARRIED = #{personMarried},
+        PERSON_ADDRESS = #{personAddress},
+        USER_ID = #{userId},
+        UPDATED = #{updated}
+        WHERE ID = #{id}
+    </update>
+    
+    <update id="currentPosition" parameterType="ProfileDomain" flushCache="true">
+        UPDATE profiles
+        SET 
+        CURRENT_TITLE = #{currentTitle},
+        CURRENT_COMPANY = #{currentCompany}
+        WHERE ID = #{id}
+    </update>
+</mapper>

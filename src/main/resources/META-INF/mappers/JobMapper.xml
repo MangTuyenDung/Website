@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.JobRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findBy" resultType="JobDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, TITLE, DOMAIN,
+        COMPANY_NAME as companyName, 
+        COMPANY_OVERVIEW as companyOverview, 
+        COMPANY_ADDRESS as companyAddress, 
+        COMPANY_RANGE as companyRange, 
+        JOB_CATEGORY as jobCategory, 
+        JOB_LOCATION as jobLocation, 
+        JOB_TIME_WORK as jobTimeWork, 
+        JOB_MEMBER_LEVEL as jobMemberLevel, 
+        JOB_SALARY as jobSalary, 
+        JOB_AGE as jobAge, 
+        JOB_SEX as jobSex, 
+        JOB_OVERVIEW as jobOverview, 
+        JOB_EDUCATION_LEVEL as jobEducationLevel, 
+        JOB_EXPERIENCE_LEVEL as jobExperienceLevel, 
+        JOB_REQUIREMENT as jobRequirement, 
+        JOB_LANGUAGE as jobLanguage, 
+        JOB_CONTACT_DETAIL as jobContactDetail, 
+        JOB_CONTACT_NAME as jobContactName, 
+        JOB_CONTACT_ADDRESS as jobContactAddress, 
+        JOB_CONTACT_PERSON as jobContactPerson, 
+        JOB_CONTACT_PHONE as jobContactPhone, 
+        JOB_CONTACT_EMAIL as jobContactEmail,
+        STATUS as status,
+        JOB_CREATED as created,
+        JOB_UPDATED as updated,
+        JOB_PUBLISHED as published, 
+        JOB_EXPIRED as expired
+        FROM jobs
+        <if test="domain != null">
+            WHERE DOMAIN = #{domain}
+        </if>
+        ORDER BY JOB_CREATED DESC
+        LIMIT #{start},#{end}
+    </select>
+    
+    <select id="findById" resultType="JobDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, TITLE, DOMAIN,
+        COMPANY_NAME as companyName, 
+        COMPANY_OVERVIEW as companyOverview, 
+        COMPANY_ADDRESS as companyAddress, 
+        COMPANY_RANGE as companyRange, 
+        JOB_CATEGORY as jobCategory, 
+        JOB_LOCATION as jobLocation, 
+        JOB_TIME_WORK as jobTimeWork, 
+        JOB_MEMBER_LEVEL as jobMemberLevel, 
+        JOB_SALARY as jobSalary, 
+        JOB_AGE as jobAge, 
+        JOB_SEX as jobSex, 
+        JOB_OVERVIEW as jobOverview, 
+        JOB_EDUCATION_LEVEL as jobEducationLevel, 
+        JOB_EXPERIENCE_LEVEL as jobExperienceLevel, 
+        JOB_REQUIREMENT as jobRequirement, 
+        JOB_LANGUAGE as jobLanguage, 
+        JOB_CONTACT_DETAIL as jobContactDetail, 
+        JOB_CONTACT_NAME as jobContactName, 
+        JOB_CONTACT_ADDRESS as jobContactAddress, 
+        JOB_CONTACT_PERSON as jobContactPerson, 
+        JOB_CONTACT_PHONE as jobContactPhone, 
+        JOB_CONTACT_EMAIL as jobContactEmail, 
+        STATUS as status,
+        JOB_CREATED as created,
+        JOB_UPDATED as updated,
+        JOB_PUBLISHED as published, 
+        JOB_EXPIRED as expired
+        FROM jobs
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="countBy" resultType="long" flushCache="false" useCache="true">
+        SELECT count(*) 
+        FROM jobs
+        <if test="domain != null">
+            WHERE DOMAIN = #{domain}
+        </if>
+    </select>
+    
+    <insert id="save" parameterType="JobDomain" flushCache="true">
+        INSERT INTO jobs
+        (ID, TITLE, JOB_OVERVIEW, JOB_REQUIREMENT)
+        VALUES
+        (#{id},#{title},#{jobOverview},#{jobRequirement})
+    </insert>
+    <update id="update" parameterType="JobDomain" flushCache="true">
+        UPDATE jobs
+        SET
+        TITLE = #{title},
+        COMPANY_NAME = #{companyName},
+        COMPANY_OVERVIEW = #{companyOverview},
+        COMPANY_ADDRESS = #{companyAddress},
+        COMPANY_RANGE = #{companyRange},
+        JOB_CATEGORY = #{jobCategory},
+        JOB_LOCATION = #{jobLocation},
+        JOB_TIME_WORK = #{jobTimeWork},
+        JOB_MEMBER_LEVEL = #{jobMemberLevel},
+        JOB_SALARY = #{jobSalary},
+        JOB_AGE = #{jobAge},
+        JOB_SEX = #{jobSex},
+        JOB_OVERVIEW = #{jobOverview},
+        JOB_EDUCATION_LEVEL = #{jobEducationLevel},
+        JOB_EXPERIENCE_LEVEL = #{jobExperienceLevel},
+        JOB_REQUIREMENT = #{jobRequirement},
+        JOB_LANGUAGE = #{jobLanguage},
+        JOB_CONTACT_DETAIL = #{jobContactDetail},
+        JOB_CONTACT_NAME = #{jobContactName},
+        JOB_CONTACT_ADDRESS = #{jobContactAddress},
+        JOB_CONTACT_PERSON = #{jobContactPerson},
+        JOB_CONTACT_PHONE = #{jobContactPhone},
+        JOB_CONTACT_EMAIL = #{jobContactEmail},
+        JOB_UPDATED = #{updated}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateConpany" parameterType="JobDomain" flushCache="true">
+        UPDATE jobs
+        SET
+        COMPANY_NAME = #{companyName},
+        COMPANY_OVERVIEW = #{companyOverview},
+        COMPANY_ADDRESS = #{companyAddress},
+        COMPANY_RANGE = #{companyRange}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateJob" parameterType="JobDomain" flushCache="true">
+        UPDATE jobs
+        SET
+        JOB_CATEGORY = #{jobCategory},
+        JOB_LOCATION = #{jobLocation},
+        JOB_TIME_WORK = #{jobTimeWork},
+        JOB_MEMBER_LEVEL = #{jobMemberLevel},
+        JOB_SALARY = #{jobSalary},
+        JOB_AGE = #{jobAge},
+        JOB_SEX = #{jobSex},
+        JOB_OVERVIEW = #{jobOverview},
+        JOB_EDUCATION_LEVEL = #{jobEducationLevel},
+        JOB_EXPERIENCE_LEVEL = #{jobExperienceLevel},
+        JOB_REQUIREMENT = #{jobRequirement},
+        JOB_LANGUAGE = #{jobLanguage}
+        WHERE ID = #{id}
+    </update>
+    <update id="updateContact" parameterType="JobDomain" flushCache="true">
+        UPDATE jobs
+        SET
+        JOB_CONTACT_DETAIL = #{jobContactDetail},
+        JOB_CONTACT_NAME = #{jobContactName},
+        JOB_CONTACT_ADDRESS = #{jobContactAddress},
+        JOB_CONTACT_PERSON = #{jobContactPerson},
+        JOB_CONTACT_PHONE = #{jobContactPhone},
+        JOB_CONTACT_EMAIL = #{jobContactEmail}
+        WHERE ID = #{id}
+    </update>
+    <update id="publish" parameterType="JobDomain" flushCache="true">
+        UPDATE jobs
+        SET
+        STATUS = 1,
+        JOB_UPDATED = #{updated},
+        JOB_PUBLISHED = #{published},
+        JOB_EXPIRED = #{expired}
+        WHERE ID = #{id}
+    </update>
+    <update id="vip" parameterType="JobDomain" flushCache="true">
+        UPDATE jobs
+        SET
+        BOOST = #{boost},
+        STATUS = #{status},
+        JOB_UPDATED = #{updated}
+        WHERE ID = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadoopvietnam.persistence.repositories.RoleRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+    <select id="findAll" parameterType="string" resultType="RoleDomain" flushCache="false" useCache="true">
+        SELECT
+        USERNAME,
+        AUTHORITY
+        FROM authorities
+        ORDER BY USERNAME, AUTHORITY
+    </select>
+
+    <select id="findByLimit" parameterType="int" resultType="RoleDomain" flushCache="false" useCache="true">
+        SELECT
+        USERNAME,
+        AUTHORITY
+        FROM authorities
+        ORDER BY USERNAME, AUTHORITY
+        LIMIT #{start},#{end}
+    </select>
+    
+    <select id="findByUsername" parameterType="RoleDomain" resultType="RoleDomain" flushCache="false" useCache="true">
+        SELECT
+        USERNAME,
+        AUTHORITY
+        FROM authorities
+        WHERE USERNAME = #{username}
+        ORDER BY USERNAME, AUTHORITY
+    </select>
+    
+    <insert id="save" parameterType="RoleDomain" flushCache="true">
+        INSERT INTO authorities
+        (USERNAME, AUTHORITY)
+        VALUES
+        (#{username}, #{authority})
+    </insert>
+    
+    <delete id="remove" parameterType="RoleDomain" flushCache="true">
+        DELETE FROM authorities 
+        WHERE USERNAME = #{username}
+        AND AUTHORITY = #{authority}
+    </delete>
+    
+    <delete id="delete" parameterType="string" flushCache="true">
+        DELETE FROM authorities WHERE USERNAME = #{username}
+    </delete>
+    
+</mapper>

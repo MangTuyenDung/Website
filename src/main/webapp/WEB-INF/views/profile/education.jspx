@@ -1,0 +1,146 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="member_url" value="/thanh-vien.html"/>
+    <spring:url var="education_url" value="/thanh-vien/bang-cap-chung-chi.html"/>
+    <spring:url var="education_json_url" value="/thanh-vien/bang-cap-chung-chi/json"/>
+    <util:panel id="school" title="Bằng cấp hoặc chứng chỉ bạn đã đạt được">
+        <form:form class="form-horizontal" id="add-education-form" modelAttribute="educationForm" method="POST" action="${education_url}">
+            <div class="tab-edit-prf clearfix" style="margin-bottom: 20px;">
+                <div class="tab">
+                    <ul>
+                        <li><a href="#"><span>1</span>Thông tin cơ bản</a></li>
+                        <li><a class="active" href="#"><span>2</span>Hồ sơ chi tiết</a></li>
+                        <li><a href="#"><span>3</span>Hoàn thành</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="control-group" id="schoolName">
+                <label class="control-label" for="inputSchoolName">Trường/Trung tâm</label>
+                <div class="controls">
+                    <form:input path="schoolName" class="span8"/>
+                    <span class="help-inline"><form:errors path="schoolName" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="schoolFieldOfStudy">
+                <label class="control-label" for="inputSchoolFieldOfStudy">Ngành học</label>
+                <div class="controls">
+                    <form:input path="schoolFieldOfStudy" class="span8"/>
+                    <span class="help-inline"><form:errors path="schoolFieldOfStudy" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="startYear">
+                <label class="control-label" for="inputStartYear">Khóa học từ</label>
+                <div class="controls">
+                    <jsp:useBean id="now" class="java.util.Date" />
+                    <fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+                    <form:select path="startYear">
+                        <c:set var="start" value="${year - 50}"/>
+                        <c:set var="end" value="${year}"/>
+                        <c:forEach var="i" begin="${start}" end="${end}">
+                            <c:choose>
+                                <c:when test="${year eq i}">
+                                    <form:option value="${i}" selected="">${i}</form:option>
+                                </c:when>
+                                <c:otherwise>
+                                    <form:option value="${i}">${i}</form:option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </form:select>
+                    đến 
+                    <form:select path="endYear">
+                        <c:set var="end" value="${year + 10}"/>
+                        <c:forEach var="i" begin="${start}" end="${end}">
+                            <c:choose>
+                                <c:when test="${year eq i}">
+                                    <form:option value="${i}" selected="">${i}</form:option>
+                                </c:when>
+                                <c:otherwise>
+                                    <form:option value="${i}">${i}</form:option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="startYear" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="description">
+                <label class="control-label" for="inputDescription">Thông tin thêm</label>
+                <div class="controls">
+                    <form:textarea path="description" class="span8" rows="5"/>
+                    <span class="help-inline"><form:errors path="description" /></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <form:hidden path="id"/>
+                    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                    <c:out value=" hoặc "/>
+                    <a href="${member_url}" title="Bỏ qua">Bỏ qua</a>
+                </div>
+            </div>
+            <c:if test="${not empty schoolSuccess}">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <center>${schoolSuccess}</center>
+                </div>
+            </c:if>
+            <c:if test="${not empty id}">
+                <div class="control-group">
+                    <div class="controls">
+                        <a href="#" rel="popover" class="btn btn-large btn-danger" data-content="Bạn có chắc chắn muốn bỏ bằng cấp này?" data-original-title="Bằng cấp hoặc chứng chỉ">Xóa bỏ bằng cấp này</a>
+                    </div>
+                </div>
+            </c:if>    
+        </form:form>
+        <script type="text/javascript">
+                <![CDATA[
+                    function collectFormData(fields) {
+                        var data = {};
+                        for (var i = 0; i < fields.length; i++) {
+                            var $item = $(fields[i]);
+                            data[$item.attr('name')] = $item.val();
+                        }
+                        return data;
+                    }
+				
+                    $(document).ready(function() {
+                        var $form = $('#add-education-form');
+                        $form.bind('submit', function(e) {
+                            // Ajax validation
+                            var $inputs = $form.find('input');
+                            var data = collectFormData($inputs);
+					
+                            $.post('${education_json_url}', data, function(response) {
+                                $form.find('.control-group').removeClass('error');
+                                $form.find('.help-inline').empty();
+                                $form.find('.alert').remove();
+						
+                                if (response.status == 'FAIL') {
+                                    for (var i = 0; i < response.errorMessageList.length; i++) {
+                                        var item = response.errorMessageList[i];
+                                        var $controlGroup = $('#' + item.fieldName);
+                                        $controlGroup.addClass('error');
+                                        $controlGroup.find('.help-inline').html(item.message);
+                                    }
+                                } else {
+                                    $form.unbind('submit');
+                                    $form.submit();
+                                }
+                            }, 'json');
+					
+                            e.preventDefault();
+                            return false;
+                        });
+                    });
+                ]]>
+        </script>
+    </util:panel>
+</div>

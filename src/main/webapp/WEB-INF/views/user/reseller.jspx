@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:ckeditor="http://ckeditor.com"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <page:list id="pl_vn_topmedia_domain_admin_User" items="${users}"
+               label="Danh sách thành viên" z="J7eNf0q406JvXU+je1ddgzhNKAY=">
+        <table:table data="${users}" id="l_vn_topmedia_domain_admin_User"
+                     view="false" delete="false" path="/service/transaction/reseller"
+                     create="false" sizeupdate="50" z="LuuqdirDouLnLtqGbf8k95g9Pec=">
+            <table:column id="c_vn_topmedia_domain_admin_User_username"
+                          maxLength="25" label="Tên đăng nhập" property="username"
+                          z="Zsi1przXZYHsa78lUCbM4uojw8M=" />
+            <table:column id="c_vn_topmedia_domain_admin_User_contact"
+                          maxLength="250" label="Liên hệ" property="contact"
+                          z="Zsi1przXZYHsa78lUCbM4uojw8M=" />
+            <table:column id="c_vn_topmedia_domain_admin_User_level"
+                          maxLength="25" label="Cập đại lý" property="level"
+                          z="Zsi1przXZYHsa78lUCbM4uojw8M=" />
+            <table:column id="c_vn_topmedia_domain_admin_User_discountDomain"
+                          label="Discount Domain" property="discountDomain"
+                          z="vYDvssguZ04opDmqsFy7xOSNquE=" />
+            <table:column id="c_vn_topmedia_domain_admin_User_discountHosting"
+                          label="Discount Hosting" property="discountHosting"
+                          z="vYDvssguZ04opDmqsFy7xOSNquE=" />
+            <table:column id="c_vn_topmedia_domain_admin_User_discountVPS"
+                          label="Discount VPS" property="discountVPS"
+                          z="vYDvssguZ04opDmqsFy7xOSNquE=" />
+            <table:column id="c_vn_topmedia_domain_admin_User_remainderMoney"
+                          maxLength="13" label="Số tiền còn lại" property="remainderMoney"
+                          format="number" z="vYDvssguZ04opDmqsFy7xOSNquE=" />
+            <table:column id="c_vn_topmedia_domain_admin_User_totalMoney"
+                          format="number" label="Tổng số tiền đã nạp" property="totalMoney"
+                          z="vYDvssguZ04opDmqsFy7xOSNquE=" />
+        </table:table>
+    </page:list>
+</div>

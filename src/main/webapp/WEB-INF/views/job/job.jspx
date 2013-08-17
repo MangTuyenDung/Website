@@ -1,0 +1,206 @@
+<div class="container-fluid" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:mtd="http://mangtuyendung.vn/functions"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <jsp:useBean id="date" class="java.util.Date" />
+    <spring:url value="/" var="home_url" />
+    <div class="container-fluid"><!----></div>
+    <div class="breadcrumb">
+        <a title="Mạng tuyển dụng" href="${home_url}">
+            Tìm việc nhanh
+        </a>
+        »
+        <util:title id="${job.id}" href="${job.title}" title="${job.title}" label="Tìm việc làm " maxlength="200"/>
+    </div>
+    <div itemscope="" itemtype="http://schema.org/JobPosting">
+        <c:set var="boxstyle" value="box-error" />
+        <c:choose>
+            <c:when test="${date.time > job.expired.time}">
+                <span class="title-jobs">${job.title} <span class="text-error">(Đã hết hạn nộp hồ sơ)</span></span>
+                <c:set var="boxstyle" value="box-error" />
+            </c:when>
+            <c:otherwise>
+                <span class="title-jobs">${job.title}</span>
+                <c:set var="boxstyle" value="box-info" />
+            </c:otherwise>
+        </c:choose>
+        <div class="box ${boxstyle} container-fluid clearfix">
+            <c:choose>
+                <c:when test="${date.time > job.expired.time}">
+                    <a href="#" class="btn btn-danger floatbtn" title="Hết hạn nộp hồ sơ tuyển dụng">Hết hạn nộp hồ sơ tuyển dụng</a>
+                </c:when>
+                <c:otherwise>
+                    <spring:url value="/thanh-vien/tin-tuyen-dung/id-${job.id}/edit.html" var="apply_url" />
+                    <a href="${apply_url}" class="btn btn-primary floatbtn" title="Sửa tin">Sửa tin tuyển dụng</a>
+                </c:otherwise>
+            </c:choose>
+            <ul class="container-fluid">
+                <li class="row-fluid">Công ty: ${job.companyName}</li>
+                <c:if test="${job.companyAddress != null}">
+                    <li class="row-fluid">Địa chỉ: ${job.companyAddress}</li>
+                </c:if>
+                <hr class="row-fluid"/>
+                <div class="row-fluid">
+                    <c:if test="${job.jobMemberLevel != null}">
+                        <li class="span4">
+                            Cấp bậc: ${job.jobMemberLevel}
+                        </li>
+                    </c:if>
+                    <c:if test="${job.jobLocation != null}">
+                        <li class="span4">
+                            Tỉnh thành: ${job.jobLocation}
+                        </li>
+                    </c:if>
+                    <c:if test="${job.jobCategory != null}">
+                        <li class="span4">
+                            Ngành nghề: ${job.jobCategory}
+                        </li>
+                    </c:if>
+                </div>
+                <div class="row-fluid">
+                    <li class="span4">Nguồn: ${job.domain}</li>    
+                    <c:if test="${job.updated != null}">
+                        <li class="span4">Ngày đăng: <fmt:formatDate pattern="dd-MM-yyyy" value="${job.updated}" /></li>
+                    </c:if>
+                    <c:if test="${job.expired != null}">
+                        <li class="span4">Hạn nộp hồ sơ: <span style="color: #C10000; font-weight: bold"><fmt:formatDate pattern="dd-MM-yyyy" value="${job.expired}" /></span></li>
+                    </c:if>
+                </div>
+            </ul>
+        </div>
+        <div id="jobOverview"><!----></div>            
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#jobOverview"><span><b>Mô tả công việc</b></span></a></li>
+            <li class="hidden-phone"><a href="#jobRequirement"><span><b>Yêu cầu và quyền lợi</b></span></a></li>
+            <c:if test="${job.companyOverview != null}">
+                <li class="hidden-phone"><a href="#companyOverview"><span><b>Sơ lược về công ty</b></span></a></li>
+            </c:if>
+            <li class="hidden-phone"><a href="#jobContact"><span><b>Thông tin liên hệ</b></span></a></li>
+        </ul>
+        <div class="tab-content job-content-tab">
+            <div class="tab-pane active">
+                <p class="job-content">
+                    ${mtd:escapeBr(job.jobOverview)}
+                </p>
+            </div>
+
+        </div>
+        <c:if test="${not empty job.jobRequirement}">
+            <div id="jobRequirement"><!----></div>        
+            <ul class="nav nav-tabs">
+                <li class="hidden-phone"><a href="#jobOverview"><span><b>Mô tả công việc</b></span></a></li>
+                <li class="active"><a href="#jobRequirement"><span><b>Yêu cầu và quyền lợi</b></span></a></li>
+                <c:if test="${job.companyOverview != null}">
+                    <li class="hidden-phone"><a href="#companyOverview"><span><b>Sơ lược về công ty</b></span></a></li>
+                </c:if>
+                <li class="hidden-phone"><a href="#jobContact"><span><b>Thông tin liên hệ</b></span></a></li>
+            </ul>
+            <div class="tab-content job-content-tab">
+                <div class="tab-pane active">
+                    <p class="job-content">${mtd:escapeBr(job.jobRequirement)}</p>
+                </div>
+
+            </div>
+        </c:if>
+        <c:if test="${not empty job.companyOverview}">        
+            <div id="companyOverview"><!----></div>        
+            <ul class="nav nav-tabs">
+                <li class="hidden-phone"><a href="#jobOverview"><span><b>Mô tả công việc</b></span></a></li>
+                <li class="hidden-phone"><a href="#jobRequirement"><span><b>Yêu cầu và quyền lợi</b></span></a></li>
+                <c:if test="${job.companyOverview != null}">
+                    <li class="active"><a href="#companyOverview"><span><b>Sơ lược về công ty</b></span></a></li>
+                </c:if>
+                <li class="hidden-phone"><a href="#jobContact"><span><b>Thông tin liên hệ</b></span></a></li>
+            </ul>
+            <div class="tab-content job-content-tab">
+                <c:if test="${job.companyOverview != null}">
+                    <div class="tab-pane active">
+                        <p class="job-content">${mtd:escapeBr(job.companyOverview)}</p>
+                    </div>
+                </c:if>
+            </div>
+        </c:if>
+        <div id="jobContact"><!----></div>        
+        <ul class="nav nav-tabs">
+            <li class="hidden-phone"><a href="#jobOverview"><span><b>Mô tả công việc</b></span></a></li>
+            <li class="hidden-phone"><a href="#jobRequirement"><span><b>Yêu cầu và quyền lợi</b></span></a></li>
+            <c:if test="${job.companyOverview != null}">
+                <li class="hidden-phone"><a href="#companyOverview"><span><b>Sơ lược về công ty</b></span></a></li>
+            </c:if>
+            <li class="active"><a href="#jobContact"><span><b>Thông tin liên hệ</b></span></a></li>
+        </ul>
+        <div class="tab-content job-content-tab">
+            <div class="tab-pane active">
+                <p class="job-content">
+                <c:if test="${not empty job.jobContactPerson}">
+                    <b>Người liên hệ:</b> ${job.jobContactPerson} <br/>
+                </c:if>
+                <c:if test="${not empty job.jobContactAddress}">
+                    <b>Địa chỉ:</b> ${job.jobContactAddress} <br/>
+                </c:if>    
+                <c:if test="${not empty job.jobContactPhone}">
+                    <b>Điên thoại:</b> ${job.jobContactPhone} <br/>
+                </c:if>
+                <c:if test="${not empty job.jobContactEmail}">
+                    <b>Địa chỉ email:</b> ${job.jobContactEmail} <br/>
+                </c:if>
+                <c:if test="${not empty job.jobContactDetail}">
+                    <b>Người liên hệ:</b> ${job.jobContactDetail} <br/>
+                </c:if>
+                <span class="text-error">Hãy chọn nộp hồ sơ tuyển dụng. Chúng tôi sẽ giúp bạn liên hệ với nhà tuyển dụng nhanh nhất.</span>
+                </p>
+            </div>
+        </div>
+        <hr class="row-fluid"/>        
+        <div class="box ${boxstyle} container-fluid clearfix">
+            <c:choose>
+                <c:when test="${date.time > job.expired.time}">
+                    <a href="#" class="btn btn-danger floatbtn" title="Hết hạn nộp hồ sơ tuyển dụng">Hết hạn nộp hồ sơ tuyển dụng</a>
+                </c:when>
+                <c:otherwise>
+                    <spring:url value="/thanh-vien/tin-tuyen-dung/id-${job.id}/edit.html" var="apply_url" />
+                    <a href="${apply_url}" class="btn btn-primary floatbtn" title="Sửa tin">Sửa tin tuyển dụng</a>
+                </c:otherwise>
+            </c:choose>
+            <ul class="container-fluid">
+                <li class="row-fluid">Công ty: ${job.companyName}</li>
+                <c:if test="${job.companyAddress != null}">
+                    <li class="row-fluid">Địa chỉ: ${job.companyAddress}</li>
+                </c:if>
+                <hr class="row-fluid"/>
+                <div class="row-fluid">
+                    <c:if test="${job.jobMemberLevel != null}">
+                        <li class="span4">
+                            Cấp bậc: ${job.jobMemberLevel}
+                        </li>
+                    </c:if>
+                    <c:if test="${job.jobLocation != null}">
+                        <li class="span4">
+                            Tỉnh thành: ${job.jobLocation}
+                        </li>
+                    </c:if>
+                    <c:if test="${job.jobCategory != null}">
+                        <li class="span4">
+                            Ngành nghề: ${job.jobCategory}
+                        </li>
+                    </c:if>
+                </div>
+                <div class="row-fluid">
+                    <li class="span4">Nguồn: ${job.domain}</li>    
+                    <c:if test="${job.updated != null}">
+                        <li class="span4">Ngày đăng: <fmt:formatDate pattern="dd-MM-yyyy" value="${job.updated}" /></li>
+                    </c:if>
+                    <c:if test="${job.expired != null}">
+                        <li class="span4">Hạn nộp hồ sơ: <span style="color: #C10000; font-weight: bold"><fmt:formatDate pattern="dd-MM-yyyy" value="${job.expired}" /></span></li>
+                    </c:if>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>

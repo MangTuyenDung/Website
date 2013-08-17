@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="info" name="user/index">
+        <put-attribute name="body" value="/WEB-INF/views/user/index.jspx" />
+    </definition>
+    <definition extends="error" name="user/create">
+        <put-attribute name="body" value="/WEB-INF/views/user/create.jspx" />
+    </definition>
+    <definition extends="error" name="user/lostpassword">
+        <put-attribute name="body" value="/WEB-INF/views/user/lostpassword.jspx" />
+    </definition>
+    <definition extends="info" name="user/changepassword">
+        <put-attribute name="body" value="/WEB-INF/views/user/changepassword.jspx" />
+    </definition>
+    <definition extends="error" name="user/successregister">
+        <put-attribute name="body" value="/WEB-INF/views/user/successregister.jspx" />
+    </definition>
+    <definition extends="error" name="user/successlostpassword">
+        <put-attribute name="body" value="/WEB-INF/views/user/successlostpassword.jspx" />
+    </definition>
+    <definition extends="error" name="user/successchangepassword">
+        <put-attribute name="body" value="/WEB-INF/views/user/successchangepassword.jspx" />
+    </definition>
+</tiles-definitions>

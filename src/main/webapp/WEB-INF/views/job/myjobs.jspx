@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="idProfile" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:ckeditor="http://ckeditor.com"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <jsp:useBean id="date" class="java.util.Date" />
+    <spring:url value="/admin/jobs" var="admin_apply_url" />
+    <spring:url value="/hoso" var="hoso_url" />
+    <div class="admin-area">
+        <h3 class="text-info">
+            Danh sách tin tuyển dụng bạn đã đăng
+        </h3>
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <td style="vertical-align: middle;font-weight: bold; text-align: center">STT</td>
+                    <td style="vertical-align: middle;font-weight: bold">Trạng thái</td>
+                    <td style="vertical-align: middle;font-weight: bold">Tin tuyển dụng</td>
+                    <td style="vertical-align: middle;font-weight: bold">Ngày tạo</td>
+                </tr>
+                <c:forEach items="${jobs}" var="item" varStatus="rowCounter">
+                    <tr>
+                        <td style="vertical-align: middle; text-align: center"><strong>${rowCounter.count}</strong></td>
+                        <td style="vertical-align: middle">
+                            <c:if test="${not item.status}">
+                                Chưa duyệt
+                            </c:if>
+                            <c:if test="${item.status}">
+                                Đã duyệt
+                            </c:if>
+                        </td>
+                        <td style="vertical-align: middle">
+                            <strong>
+                                <util:reviewjob id="${item.jobId}" title="${item.jobName}" maxlength="250"/>
+                            </strong>
+                            <br/>
+                            <span class="text-warning">${item.jobCompany}</span>
+                        </td>
+                        <td style="vertical-align: middle">
+                            <fmt:formatDate pattern="dd-MM-yyyy" value="${item.created}" />
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <div class="idProfile">
+        <util:pagination maxPages="${maxPages}" page="${pageNo}" size="${sizeNo}" linkparam="${admin_apply_url}"/>
+    </div>
+</div>

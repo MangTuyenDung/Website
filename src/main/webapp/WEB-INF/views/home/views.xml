@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="null" name="home/index">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/home/index.jspx" />
+    </definition>
+    <definition extends="null" name="category-location/index">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/home/category-location.jspx" />
+    </definition>
+    <definition extends="error" name="home/maintenance">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/home/maintenance.jspx" />
+    </definition>
+    <definition extends="null" name="home/policy">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/home/policy.jspx" />
+    </definition>
+</tiles-definitions>

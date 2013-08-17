@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadoopvietnam.persistence.repositories.statistics.StatisticBotsRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findBy" resultType="StatisticBotsDomain" flushCache="false" useCache="true">
+        SELECT 
+        id, 
+        ip, 
+        count, 
+        bot, 
+        version, 
+        page_name as pageName, 
+        tstamp as created 
+        FROM nstatistics_bots
+        WHERE
+        IP = #{IP}
+        AND (
+        DATE_FORMAT( tstamp, '%m-%d-%Y %H:%i:%s') = DATE_FORMAT( 
+        CURRENT_TIMESTAMP, '%m-%d-%Y %H:%i:%s')
+        )
+    </select>
+    
+    <insert id="save" parameterType="StatisticBotsDomain" flushCache="true">
+        INSERT INTO nstatistics_bots
+        (id, ip, count, bot, version, page_name, tstamp)
+        VALUES
+        (#{id}, #{IP}, #{count}, #{bot}, #{version}, #{pageName}, #{created})
+    </insert>
+    
+    <update id="update" parameterType="StatisticBotsDomain" flushCache="true">
+        UPDATE nstatistics_bots
+        SET count = count + 1
+        WHERE id = #{id}
+    </update>
+    
+</mapper>

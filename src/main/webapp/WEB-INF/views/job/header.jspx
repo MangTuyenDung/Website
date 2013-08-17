@@ -1,0 +1,44 @@
+<div id="header" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="banner" value="/resources/images/logo.png" />
+    <spring:url var="home_url" value="/" />
+    <spring:url var="js_url" value="/resources/js" />
+    <div class="navbar navbar-inverse" style="margin-bottom: 0">
+        <div class="navbar-inner">
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li><a href="${home_url}" title="Tìm việc làm thêm"><i class="icon-home icon-white"><!----></i> <img style="padding-left: 5px" src="${banner}" alt="Tìm việc làm thêm"/></a></li>
+                    <!--<li><a href="${home_url}" title="Tìm việc làm"><i class="icon-home icon-white"></i> Trang chủ</a></li>-->
+                </ul>
+            </div>
+            <div class="total-jobs">Hiện có <span style="color: red">${totaljobs}</span> cơ hội việc làm dành cho bạn</div>
+            <div class="pull-right">
+                <spring:url value="/dang-tin-tuyen-dung.html" var="job_url" />
+                <a href="${job_url}" class="btn btn-danger">Đăng tin tuyển dụng miễn phí</a>
+                <c:if test="${pageContext['request'].userPrincipal != null}">
+                    <spring:url value="/resources/j_spring_security_logout" var="logout"/>
+                    <spring:url value="/thanh-vien.html" var="cv_url" />
+                    <c:out value=" "/>
+                    <a href="${cv_url}" class="btn btn-primary" title="Hồ sơ ứng viên">Hồ sơ ứng viên</a>
+                    <c:out value=" "/>
+                    <a href="${logout}" class="btn btn-primary">
+                        Thoát
+                    </a>
+                </c:if>
+                <c:if test="${pageContext['request'].userPrincipal == null}">
+                    <spring:url value="/login" var="login"/>
+                    <spring:url value="/dang-ky-thanh-vien.html" var="register_url" />
+                    <c:out value=" "/>
+                    <a href="${register_url}" class="btn btn-primary" title="Đăng ký thành viên">Đăng ký thành viên</a>
+                    <c:out value=" "/>
+                    <a href="${login}" class="btn btn-primary" title="Đăng nhập">Đăng nhập</a>
+                </c:if>
+                <c:out value=" "/>
+            </div>
+        </div>
+    </div>
+</div>

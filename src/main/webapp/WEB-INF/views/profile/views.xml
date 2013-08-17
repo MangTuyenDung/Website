@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="info" name="profile/index">
+        <put-attribute name="body" value="/WEB-INF/views/profile/index.jspx" />
+    </definition>
+    <definition extends="info" name="profile/information">
+        <put-attribute name="body" value="/WEB-INF/views/profile/information.jspx" />
+    </definition>
+    <definition extends="info" name="profile/education">
+        <put-attribute name="body" value="/WEB-INF/views/profile/education.jspx" />
+    </definition>
+    <definition extends="info" name="profile/position">
+        <put-attribute name="body" value="/WEB-INF/views/profile/position.jspx" />
+    </definition>
+    <definition extends="info" name="profile/successinformation">
+        <put-attribute name="body" value="/WEB-INF/views/profile/successinformation.jspx" />
+    </definition>
+    <definition extends="info" name="profile/successeducation">
+        <put-attribute name="body" value="/WEB-INF/views/profile/successeducation.jspx" />
+    </definition>
+    <definition extends="info" name="profile/successposition">
+        <put-attribute name="body" value="/WEB-INF/views/profile/successposition.jspx" />
+    </definition>
+    <definition extends="info" name="profile/successskill">
+        <put-attribute name="body" value="/WEB-INF/views/profile/successskill.jspx" />
+    </definition>
+    <definition extends="info" name="profile/insertinformation">
+        <put-attribute name="body" value="/WEB-INF/views/profile/insertinformation.jspx" />
+    </definition>
+    <definition extends="info" name="profile/inserteducation">
+        <put-attribute name="body" value="/WEB-INF/views/profile/inserteducation.jspx" />
+    </definition>
+    <definition extends="info" name="profile/insertposition">
+        <put-attribute name="body" value="/WEB-INF/views/profile/insertposition.jspx" />
+    </definition>
+    <definition extends="info" name="profile/insertskill">
+        <put-attribute name="body" value="/WEB-INF/views/profile/insertskill.jspx" />
+    </definition>
+    <definition extends="info" name="profile/skill">
+        <put-attribute name="body" value="/WEB-INF/views/profile/skill.jspx" />
+    </definition>
+</tiles-definitions>

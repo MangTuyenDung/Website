@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.member.JobSkillRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+    <select id="findById" resultType="JobSkillDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, PROFILE_ID as profileId,
+        SKILL_NAME as skillName, 
+        CREATED, UPDATED
+        FROM job_skill
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="findByProfileId" resultType="JobSkillDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, PROFILE_ID as profileId,
+        SKILL_NAME as skillName, 
+        CREATED, UPDATED
+        FROM job_skill
+        WHERE PROFILE_ID = #{profileId}
+        ORDER BY CREATED DESC
+    </select>
+    
+    <insert id="save" parameterType="JobSkillDomain" flushCache="true">
+        INSERT INTO job_skill
+        (PROFILE_ID, SKILL_NAME, CREATED)
+        VALUES
+        (#{profileId},#{skillName},#{created})
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+    
+    <update id="update" flushCache="true">
+        UPDATE job_skill
+        SET
+        SKILL_NAME = #{skillName},
+        UPDATED = #{updated}
+        WHERE ID = #{id}
+        AND PROFILE_ID = #{profileId}
+    </update>
+    
+    <delete id="delete" flushCache="true">
+        DELETE FROM job_skill 
+        WHERE ID = #{id}
+        AND PROFILE_ID = #{profileId}
+    </delete>
+</mapper>

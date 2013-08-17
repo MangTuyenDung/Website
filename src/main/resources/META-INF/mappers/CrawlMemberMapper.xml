@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.CrawlMemberRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <select id="findBy" resultType="CrawlMemberDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, URL, DOMAIN, BOOST,
+        PERSON_NAME as personName,
+        PERSON_BIRTHDAY as personBirthDay,
+        PERSON_SEX as personSex,
+        PERSON_MARRIED as personMarried,
+        PERSON_ADDRESS as personAddress,
+        PERSON_PHONE as personPhone,
+        PERSON_MOBILE as personMobile,
+        PERSON_EMAIL as personEmail,
+        JOB_TITLE as jobTitle,
+        JOB_MEMBER_LEVEL as jobMemberLevel,
+        JOB_DESIRED as jobDesired,
+        JOB_SKILLS as jobSkills,
+        JOB_SALARY_CURRENT as jobSalaryCurrent,
+        JOB_SALARY_DESIRED as jobSalaryDesired,
+        JOB_WORK_FORM as jobWorkForm,
+        JOB_CATEGORY as jobCategory,
+        JOB_LOCATION as jobLocation,
+        SKILL_EDUCATION as skillEducation,
+        SKILL_IT as skillIT,
+        SKILL_COMUNICATION as skillComunication,
+        SKILL_ENGLISH as skillEnglish,
+        JOB_EDUCATION as jobEducation,
+        JOB_EXPERIENCE as jobExperience, 
+        CREATED as created,
+        UPDATED as updated
+        FROM job_member
+        <if test="domain != null">
+            WHERE DOMAIN = #{domain}
+        </if>
+        ORDER BY CREATED
+        LIMIT #{start},#{end}
+    </select>
+    
+    <select id="findById" resultType="CrawlMemberDomain" flushCache="false" useCache="true">
+        SELECT 
+        ID, URL, DOMAIN, BOOST,
+        PERSON_NAME as personName,
+        PERSON_BIRTHDAY as personBirthDay,
+        PERSON_SEX as personSex,
+        PERSON_MARRIED as personMarried,
+        PERSON_ADDRESS as personAddress,
+        PERSON_PHONE as personPhone,
+        PERSON_MOBILE as personMobile,
+        PERSON_EMAIL as personEmail,
+        JOB_TITLE as jobTitle,
+        JOB_MEMBER_LEVEL as jobMemberLevel,
+        JOB_DESIRED as jobDesired,
+        JOB_SKILLS as jobSkills,
+        JOB_SALARY_CURRENT as jobSalaryCurrent,
+        JOB_SALARY_DESIRED as jobSalaryDesired,
+        JOB_WORK_FORM as jobWorkForm,
+        JOB_CATEGORY as jobCategory,
+        JOB_LOCATION as jobLocation,
+        SKILL_EDUCATION as skillEducation,
+        SKILL_IT as skillIT,
+        SKILL_COMUNICATION as skillComunication,
+        SKILL_ENGLISH as skillEnglish,
+        JOB_EDUCATION as jobEducation,
+        JOB_EXPERIENCE as jobExperience, 
+        CREATED as created,
+        UPDATED as updated
+        FROM job_member
+        WHERE ID = #{id}
+    </select>
+    
+    <select id="countBy" resultType="long" flushCache="false" useCache="true">
+        SELECT count(*) 
+        FROM job_member
+        <if test="domain != null">
+            WHERE DOMAIN = #{domain}
+        </if>
+        ORDER BY CREATED
+    </select>
+    
+    <insert id="save" parameterType="CrawlMemberDomain" flushCache="true">
+        INSERT INTO job_member
+        (ID, URL, DOMAIN, BOOST, PERSON_NAME,PERSON_BIRTHDAY, PERSON_SEX, PERSON_MARRIED, PERSON_ADDRESS, PERSON_MOBILE, PERSON_EMAIL, JOB_TITLE, JOB_MEMBER_LEVEL, JOB_DESIRED, JOB_SKILLS, JOB_SALARY_CURRENT, JOB_SALARY_DESIRED, JOB_WORK_FORM, JOB_CATEGORY, JOB_LOCATION, SKILL_EDUCATION, SKILL_IT, SKILL_COMUNICATION, SKILL_ENGLISH, JOB_EDUCATION, JOB_EXPERIENCE, CREATED)
+        VALUES
+        (#{id},#{url},#{domain},#{boost},#{personName},#{personBirthDay},#{personSex},#{personMarried},#{personAddress},#{personMobile},#{personEmail},#{jobTitle},#{jobMemberLevel},#{jobDesired},#{jobSkills},#{jobSalaryCurrent},#{jobSalaryDesired},#{jobWorkForm},#{jobCategory},#{jobLocation},#{skillEducation},#{skillIT},#{skillComunication},#{skillEnglish},#{jobEducation},#{jobExperience},#{created})
+    </insert>
+</mapper>

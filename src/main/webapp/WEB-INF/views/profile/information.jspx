@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="member_url" value="/thanh-vien.html"/>
+    <spring:url var="information_url" value="/thanh-vien/thong-tin-thanh-vien.html"/>
+    <spring:url var="information_json_url" value="/thanh-vien/thong-tin-thanh-vien/json"/>
+    <util:panel id="createMember" title="Thông tin thành thành viên">
+        <div class="tab-edit-prf clearfix" style="margin-top: 20px">
+            <div class="tab">
+                <ul>
+                    <li><a class="active" href="#"><span>1</span>Thông tin cơ bản</a></li>
+                    <li><a href="#"><span>2</span>Hồ sơ chi tiết</a></li>
+                    <li><a href="#"><span>3</span>Hoàn thành</a></li>
+                </ul>
+            </div>
+        </div>
+        <form:form class="form-horizontal" id="add-information-form" modelAttribute="informationForm" method="POST" action="${information_url}">
+            <div class="control-group" id="personName">
+                <label class="control-label" for="inputPersonName">Họ và tên</label>
+                <div class="controls">
+                    <form:input path="personName" class="span6"/>
+                    <span class="help-inline"><form:errors path="personName" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="personMobile">
+                <label class="control-label" for="inputPersonMobile">Điện thoại di dộng</label>
+                <div class="controls">
+                    <form:input path="personMobile" class="span6"/>
+                    <span class="help-inline"><form:errors path="personMobile" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="personSex">
+                <label class="control-label" for="inputPersonSex">Giới tính</label>
+                <div class="controls">
+                    <form:select path="personSex">
+                        <form:option value="Nam">Nam</form:option>
+                        <form:option value="Nữ">Nữ</form:option>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="personSex" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="personMarried">
+                <label class="control-label" for="inputPersonMarried">Tình trạng hôn nhân</label>
+                <div class="controls">
+                    <form:select path="personMarried">
+                        <form:option value="Độc thân">Độc thân</form:option>
+                        <form:option value="Đã kết hôn">Đã kết hôn</form:option>
+                    </form:select>
+                    <span class="help-inline"><form:errors path="personMarried" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="resumeOverview">
+                <label class="control-label" for="inputPersonOverview">Mô tả bản thân</label>
+                <div class="controls">
+                    <form:textarea path="resumeOverview" class="span6" rows="5"/>
+                    <span class="help-inline"><form:errors path="resumeOverview" /></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <form:hidden path="id"/>
+                    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                    <c:if test="${not empty id}">
+                        <c:out value=" hoặc "/>
+                        <a href="${member_url}" title="Bỏ qua">Bỏ qua</a>
+                    </c:if>
+                </div>
+            </div>
+        </form:form>
+        <script type="text/javascript">
+                <![CDATA[
+                    function collectFormData(fields) {
+                        var data = {};
+                        for (var i = 0; i < fields.length; i++) {
+                            var $item = $(fields[i]);
+                            data[$item.attr('name')] = $item.val();
+                        }
+                        return data;
+                    }
+				
+                    $(document).ready(function() {
+                        var $form = $('#add-information-form');
+                        $form.bind('submit', function(e) {
+                            // Ajax validation
+                            var $inputs = $form.find('input');
+                            var data = collectFormData($inputs);
+					
+                            $.post('${information_json_url}', data, function(response) {
+                                $form.find('.control-group').removeClass('error');
+                                $form.find('.help-inline').empty();
+                                $form.find('.alert').remove();
+						
+                                if (response.status == 'FAIL') {
+                                    for (var i = 0; i < response.errorMessageList.length; i++) {
+                                        var item = response.errorMessageList[i];
+                                        var $controlGroup = $('#' + item.fieldName);
+                                        $controlGroup.addClass('error');
+                                        $controlGroup.find('.help-inline').html(item.message);
+                                    }
+                                } else {
+                                    $form.unbind('submit');
+                                    $form.submit();
+                                }
+                            }, 'json');
+					
+                            e.preventDefault();
+                            return false;
+                        });
+                    });
+                ]]>
+        </script>
+    </util:panel>
+</div>

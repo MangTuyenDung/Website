@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+     xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:spring="http://www.springframework.org/tags" 
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" id="footer" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <spring:url value="/resources/images" var="images"/>
+    <c:set value="http://mangtuyendung.vn" var="home_ad_url"/>
+    <spring:url value="/login" var="login"/>
+    <spring:url value="/dang-tin-tuyen-dung-mien-phi.html" var="create_job"/>
+    <spring:url value="/dang-ky-thanh-vien.html" var="register_url" />
+    <spring:url value="/tim-viec-lam" var="search_url" />
+
+    <div class="list-keyword">
+        <div class="main">
+            <ul class="clearfix">
+                <li>Tìm kiếm nhiều:</li>
+                <li><a href="${search_url}/viec-lam-them-sinh-vien.html" title="Tìm việc làm thêm sinh viên">Việc làm thêm sinh viên</a></li>
+                <li>|</li>
+                <li><a href="${search_url}/viec-lam-ban-thoi-gian.html" title="Tìm việc làm bán thời gian">Việc làm bán thời gian</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}/viec-lam-tai-ha-noi.html" title="Tìm việc làm tại Hà Nội">Việc làm tại Hà Nội</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}/viec-lam-tai-ho-chi-minh.html" title="Tìm việc làm tại Hồ Chí Minh">Việc làm tại tphcm</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}" title="Kiếm việc nhanh">kiem viec nhanh</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}/tim-viec-lam-ke-toan-kiem-toan.html" title="Tìm việc kế toán">Tìm việc kế toán</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}/tim-viec-lam-ke-toan-kiem-toan.html" title="Kế toán tìm việc">Kế toán tìm việc</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}/viec-lam-tai-ha-noi.html" title="Tìm việc làm tại Hà Nội">Việc làm Hà Nội</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}/viec-lam-them.html" title="Tìm việc làm thêm">Việc làm thêm</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}" title="Tìm việc">Tìm việc</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}" title="Việc làm">Việc làm</a></li>
+                <li>|</li>
+                <li><a href="${home_ad_url}/viec-lam-tai-ha-noi.html" title="Tìm việc Hà Nội">Tìm việc Hà Nội</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span4">
+                <p class="tit">Tìm việc làm</p>
+                <ul class="clearfix">
+                    <li><a href="#">Tìm kiếm nâng cao</a></li>
+                    <li><a href="${login}" title="Đăng ký thành viên">Đăng ký thành viên</a></li>
+                    <li><a href="${register_url}" title="Đăng nhập">Đăng nhập</a></li>
+                </ul>
+            </div>
+            <spring:url value="/dang-tin-tuyen-dung.html" var="create_job_url" />
+            <div class="span4">
+                <p class="tit">Tuyển dụng</p>
+                <ul class="clearfix">
+                    <li><a href="${create_job_url}">Đăng tin tuyển dụng miễn phí</a></li>
+                    <li><a href="${create_job_url}">Đăng tin tuyển dụng tính phí</a></li>
+                </ul>
+            </div>
+            <div class="span4">
+                <p class="tit">Kết nối với chúng tôi</p>
+                <ul class="clearfix">
+                    <li class="list-logo-ft">
+                        <a href="https://www.facebook.com/pages/MangTuyenDung/385302581541370" title="Tìm chúng tôi trên Facebook">
+                            <img src="${images}/facebook-ft.jpg" alt="Tìm chúng tôi trên Facebook"/>
+                        </a>
+                    </li>
+                    <li class="list-logo-ft"><a href="#"><img src="${images}/twitter-ft.jpg"/></a></li>
+                    <li class="list-logo-ft">
+                        <a href="https://plus.google.com/110923179806139892621" rel="publisher" title="Tìm chúng tôi trên Google+">
+                            <img src="${images}/googleplus-ft.jpg" alt="Tìm chúng tôi trên Google+"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="span12">
+                <span class="pull-left text-error" style="padding-left: 15px;">
+                    Sponsored by <a href="https://plus.google.com/110923179806139892621?rel=author" title="Mạng tuyển dụng và việc làm"> Mạng tuyển dụng</a> và <a href="${home_ad_url}" title="Tìm việc làm">Việc làm</a> 
+                </span>
+            </div>    
+        </div>
+    </div>
+    <!--Start of Zopim Live Chat Script-->
+    <!--    <script type="text/javascript">
+            window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+                    d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+                        _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+                $.src='//cdn.zopim.com/?kYhN0gf8hzQF1k6mevDcv996WvTxcq06';z.t=+new Date;$.
+                    type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+        </script>-->
+    <!--End of Zopim Live Chat Script-->    
+</div>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:mtd="http://mangtuyendung.vn/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:ckeditor="http://ckeditor.com"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <div class="row-fluid">
+        <div class="span3">
+            <center>
+                <c:if test="${profile.personSex eq 'Nam'}">
+                    <spring:url var="pthumb_url" value="/resources/man.jpg"/>
+                    <img src="${pthumb_url}" alt="${profile.personName}"/>
+                </c:if>
+                <c:if test="${profile.personSex eq 'Nữ'}">
+                    <spring:url var="pthumb_url" value="/resources/women.jpg"/>
+                    <img src="${pthumb_url}" alt="${profile.personName}"/>
+                </c:if>
+            </center>
+        </div>
+        <div class="span9">
+            <h2 class="container-fluid">${profile.personName}</h2>
+            <h4 class="container-fluid">${profile.currentTitle} tại ${profile.currentCompany}</h4>
+            <hr style="margin: 0"/>
+            <p style="padding: 10px;">
+                <b>Số điện thoại:</b> ${profile.personMobile}
+                <br/>
+                <b>Giới tính:</b> ${profile.personSex}
+                <br/>
+                <b>Tình trạng hôn nhân:</b> ${profile.personMarried}
+            </p>
+        </div>
+    </div>
+</div>

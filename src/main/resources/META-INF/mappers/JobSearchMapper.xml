@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.mangtuyendung.persistence.repositories.JobSearchRepository">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+    <insert id="save" parameterType="JobSearchDomain" flushCache="true">
+        INSERT INTO job_search
+        (TEXT, LOCATION, USER_AGENT, SESSION_ID, IP, URL, CREATED)
+        VALUES
+        (#{text},#{location},#{userAgent},#{sessionId},#{ip},#{url},#{created})
+    </insert>
+</mapper>

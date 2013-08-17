@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="register_url" value="/dang-ky-thanh-vien.html"/>
+    <spring:url var="register_json_url" value="/dang-ky-thanh-vien/json"/>
+    <util:panel id="createMember" title="Đăng ký thành viên">
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            Đăng ký tham gia Mạng tuyển dụng để nhận được hàng ngàn cơ hội việc làm phù hợp với bạn
+        </div>
+        <form:form class="form-horizontal" id="add-user-form" modelAttribute="registerForm" method="POST" action="${register_url}">
+            <div class="control-group" id="username">
+                <label class="control-label" for="inputPassword">Tài khoản</label>
+                <div class="controls">
+                    <form:input path="username"/>
+                    <span class="help-inline"><form:errors path="username" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="password">
+                <label class="control-label" for="inputPassword">Mật khẩu</label>
+                <div class="controls">
+                    <form:input path="password" type="password"/>
+                    <span class="help-inline"><form:errors path="password" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="rePassword">
+                <label class="control-label" for="inputRePassword">Nhập lại mật khẩu</label>
+                <div class="controls">
+                    <form:input path="rePassword" type="password"/>
+                    <span class="help-inline"><form:errors path="rePassword" /></span>
+                </div>
+            </div>
+            <div class="control-group" id="email">
+                <label class="control-label" for="inputEmail">Email</label>
+                <div class="controls">
+                    <form:input path="email"/>
+                    <span class="help-inline"><form:errors path="email" /></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    <c:out value=" "/>
+                    <button type="reset" class="btn">Nhập lại</button>
+                </div>
+            </div>
+        </form:form>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <spring:url value="/quy-dinh-thanh-vien.html" var="policy_url" />
+            Khi bạn đăng ký thành viên, bạn đã đồng ý với các <a href="${policy_url}" title="Quên mật khẩu">quy định thành viên</a> của Mạng Tuyển Dụng
+        </div>
+        <script type="text/javascript">
+                <![CDATA[
+                    function collectFormData(fields) {
+                        var data = {};
+                        for (var i = 0; i < fields.length; i++) {
+                            var $item = $(fields[i]);
+                            data[$item.attr('name')] = $item.val();
+                        }
+                        return data;
+                    }
+				
+                    $(document).ready(function() {
+                        var $form = $('#add-user-form');
+                        $form.bind('submit', function(e) {
+                            // Ajax validation
+                            var $inputs = $form.find('input');
+                            var data = collectFormData($inputs);
+					
+                            $.post('${register_json_url}', data, function(response) {
+                                $form.find('.control-group').removeClass('error');
+                                $form.find('.help-inline').empty();
+                                $form.find('.alert').remove();
+						
+                                if (response.status == 'FAIL') {
+                                    for (var i = 0; i < response.errorMessageList.length; i++) {
+                                        var item = response.errorMessageList[i];
+                                        var $controlGroup = $('#' + item.fieldName);
+                                        $controlGroup.addClass('error');
+                                        $controlGroup.find('.help-inline').html(item.message);
+                                    }
+                                } else {
+                                    $form.unbind('submit');
+                                    $form.submit();
+                                }
+                            }, 'json');
+					
+                            e.preventDefault();
+                            return false;
+                        });
+                    });
+                ]]>
+        </script>
+    </util:panel>
+</div>

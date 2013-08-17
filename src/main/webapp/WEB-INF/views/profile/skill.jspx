@@ -1,0 +1,90 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="member_url" value="/thanh-vien.html"/>
+    <spring:url var="skill_url" value="/thanh-vien/ky-nang-chuyen-mon.html"/>
+    <spring:url var="skill_json_url" value="/thanh-vien/ky-nang-chuyen-mon/json"/>
+    <util:panel id="school" title="Bằng cấp hoặc chứng chỉ bạn đã đạt được">
+        <form:form class="form-horizontal" id="add-skill-form" modelAttribute="skillForm" method="POST" action="${skill_url}">
+            <div class="tab-edit-prf clearfix" style="margin-bottom: 20px;">
+                <div class="tab">
+                    <ul>
+                        <li><a href="#"><span>1</span>Thông tin cơ bản</a></li>
+                        <li><a class="active" href="#"><span>2</span>Hồ sơ chi tiết</a></li>
+                        <li><a href="#"><span>3</span>Hoàn thành</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="control-group" id="skillName">
+                <div class="controls">
+                    Mỗi kỹ năng bạn lưu một lần.
+                    <br/> VD: Marketing
+                    <br/> Bán hàng
+                    <br/> Kế toán ...
+                    <p/>
+                </div>
+                <label class="control-label" for="inputSkillName">Tên</label>
+                <div class="controls">
+                    <form:input path="skillName" placeholder="Nhập kỹ năng hoặc chuyên môn của bạn" class="span8"/>
+                    <span class="help-inline"><form:errors path="skillName" /></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <form:hidden path="id"/>
+                    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                    <c:out value=" hoặc "/>
+                    <a href="${member_url}" title="Bỏ qua">Bỏ qua</a>
+                </div>
+            </div>
+        </form:form>
+        <script type="text/javascript">
+                <![CDATA[
+                    function collectFormData(fields) {
+                        var data = {};
+                        for (var i = 0; i < fields.length; i++) {
+                            var $item = $(fields[i]);
+                            data[$item.attr('name')] = $item.val();
+                        }
+                        return data;
+                    }
+				
+                    $(document).ready(function() {
+                        var $form = $('#add-skill-form');
+                        $form.bind('submit', function(e) {
+                            // Ajax validation
+                            var $inputs = $form.find('input');
+                            var data = collectFormData($inputs);
+					
+                            $.post('${skill_json_url}', data, function(response) {
+                                $form.find('.control-group').removeClass('error');
+                                $form.find('.help-inline').empty();
+                                $form.find('.alert').remove();
+						
+                                if (response.status == 'FAIL') {
+                                    for (var i = 0; i < response.errorMessageList.length; i++) {
+                                        var item = response.errorMessageList[i];
+                                        var $controlGroup = $('#' + item.fieldName);
+                                        $controlGroup.addClass('error');
+                                        $controlGroup.find('.help-inline').html(item.message);
+                                    }
+                                } else {
+                                    $form.unbind('submit');
+                                    $form.submit();
+                                }
+                            }, 'json');
+					
+                            e.preventDefault();
+                            return false;
+                        });
+                    });
+                ]]>
+        </script>
+    </util:panel>
+</div>
