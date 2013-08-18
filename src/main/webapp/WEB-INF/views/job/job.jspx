@@ -37,7 +37,7 @@
                 </c:when>
                 <c:otherwise>
                     <spring:url value="/thanh-vien/tin-tuyen-dung/id-${job.id}/edit.html" var="apply_url" />
-                    <a href="${apply_url}" class="btn btn-primary floatbtn" title="Sửa tin">Sửa tin tuyển dụng</a>
+                    <a href="#" class="btn btn-primary floatbtn" title="Sửa tin">Sửa tin tuyển dụng</a>
                 </c:otherwise>
             </c:choose>
             <ul class="container-fluid">

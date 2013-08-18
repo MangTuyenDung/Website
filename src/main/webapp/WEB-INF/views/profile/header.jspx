@@ -245,7 +245,11 @@
             </ul>
             <spring:url value="/dang-tin-tuyen-dung.html" var="create_job_url" />
             <div class="pull-right">
-                <a href="${create_job_url}" class="btn btn-danger">Đăng tin tuyển dụng miễn phí</a>
+                <a href="${create_job_url}" class="btn btn-success">
+                        <spring:url value="/resources/images" var="img_url" />
+                        <img src="${img_url}/new.gif" alt="${item.title}" title="${item.title}"/>
+                        Đăng tin tuyển dụng miễn phí
+                </a>
                 <c:if test="${pageContext['request'].userPrincipal != null}">
                     <spring:url value="/resources/j_spring_security_logout" var="logout"/>
                     <c:out value=" "/>

@@ -18,7 +18,11 @@
             <div class="total-jobs">Hiện có <span style="color: red">${totaljobs}</span> cơ hội việc làm dành cho bạn</div>
             <div class="pull-right">
                 <spring:url value="/dang-tin-tuyen-dung.html" var="job_url" />
-                <a href="${job_url}" class="btn btn-danger">Đăng tin tuyển dụng miễn phí</a>
+                <a href="${job_url}" class="btn btn-success">
+                        <spring:url value="/resources/images" var="img_url" />
+                        <img src="${img_url}/new.gif" alt="${item.title}" title="${item.title}"/>
+                        Đăng tin tuyển dụng miễn phí
+                </a>
                 <c:if test="${pageContext['request'].userPrincipal != null}">
                     <spring:url value="/resources/j_spring_security_logout" var="logout"/>
                     <spring:url value="/thanh-vien.html" var="cv_url" />

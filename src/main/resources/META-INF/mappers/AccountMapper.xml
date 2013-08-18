@@ -25,7 +25,7 @@
         FROM users
         <!--left outer join authorities a on a.USERNAME = u.USERNAME-->
         <!--WHERE u.ENABLED = 1-->
-        ORDER BY USERNAME
+        ORDER BY CREATED DESC
     </select>
     
     <select id="findByLimit" resultType="AccountDomain" flushCache="false" useCache="true">

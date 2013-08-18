@@ -48,11 +48,11 @@
         </pluginRepository>
     </pluginRepositories>
     <dependencies>
-        <!-- javamelody-core -->
         <dependency>
-            <groupId>net.bull.javamelody</groupId>
-            <artifactId>javamelody-core</artifactId>
-            <version>1.41.0</version>
+            <groupId>de.javakaffee.msm</groupId>
+            <artifactId>msm-kryo-serializer</artifactId>
+            <version>1.6.5</version>
+            <scope>runtime</scope>
         </dependency>
         <!-- itext, option to add PDF export -->
         <dependency>
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>vn.mangtuyendung</groupId>
             <artifactId>mangtuyendung-controller-framework</artifactId>
-            <version>1.0.0-M3</version>
+            <version>1.0.0-M4</version>
         </dependency>
         <dependency>
             <groupId>c3p0</groupId>
