@@ -35,50 +35,47 @@
         <script src="${js_path}/bootstrap/js/bootstrap.min.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
         <script src="${js_path}/bootstrap/js/application.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
         <script src="${js_path}/bootstrap/js/bootstrap-carousel.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
-        <script src="${js_path}/bootstrap-modal.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
-        <script src="${js_path}/bootstrap-modalmanager.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
-        
+
         <link rel="stylesheet" href="${js_path}/bootstrap/css/bootstrap.min.css" type="text/css" title="ui-theme" />
         <link rel="stylesheet" href="${js_path}/bootstrap/css/bootstrap-responsive.min.css" type="text/css" title="ui-theme" />
         <link rel="stylesheet" href="${js_path}/google-code-prettify/prettify.css" type="text/css" title="ui-theme" />
         <link rel="stylesheet" href="${js_path}/bootstrap/css/layout.css" type="text/css" title="ui-theme" />
         <link rel="stylesheet" href="${js_path}/bootstrap/css/docs.css" type="text/css" title="ui-theme" />
         <!--<link rel="stylesheet" href="${js_path}/bootstrap/css/profile.css" type="text/css" title="ui-theme" />-->
-        <link rel="stylesheet" href="${js_path}/bootstrap-modal.css" type="text/css" title="ui-theme" />
-        
+
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <script type="text/javascript">
 
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-35262246-1']);
-            _gaq.push(['_setDomainName', 'mangtuyendung.vn']);
-            _gaq.push(['_trackPageview']);
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-35262246-1']);
+_gaq.push(['_setDomainName', 'mangtuyendung.vn']);
+_gaq.push(['_trackPageview']);
 
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
+(function() {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
 
         </script>
     </head>
 
     <body>
         <tiles:insertAttribute name="header"/> 
-        <div class="container" style="margin-top: 20px">
+        <tiles:insertAttribute name="search" ignore="true"/> 
+        <div class="container">
             <div class="row-fluid">
-                <div class="span3">
-                    <!--Sidebar content-->
-                    <tiles:insertAttribute name="quick"/>
-                </div>
-                <div class="span7 border-core">
+                <div class="span9 border-core">
                     <!--Body content-->
                     <tiles:insertAttribute name="body"/>
                 </div>
-                <div class="span2">
+                <div class="span3">
                     <!--Sidebar content-->
                     <tiles:insertAttribute name="menu"/>
                 </div>

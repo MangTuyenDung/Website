@@ -1,0 +1,70 @@
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:url var="search_quick_url" value="${action_url}.html"/>
+    <form:form class="form-horizontal" id="quick-job-form" modelAttribute="searchQuickForm" method="POST" action="${search_quick_url}">
+        <div class="control-group" id="ftext">
+            <div class="input-append">
+                <form:input path="ftext" style="width:198px"/>
+                <button type="submit" class="btn btn-primary">Tìm việc</button>
+            </div>
+        </div>
+                <c:if test="${not empty topLocations}">        
+        <div id="locationId" class="quick-location">
+            <c:forEach items="${topLocations}" var="item" varStatus="rowCounter">
+                <label class="checkbox">
+                    <form:checkbox path="flocations" value="${item.name}"/>
+                    ${item.name} (${item.count})
+                </label>
+            </c:forEach>
+        </div>
+        </c:if>
+        <c:if test="${not empty educations}">
+        <div id="educationId" class="quick-education">
+            <c:forEach items="${educations}" var="item" varStatus="rowCounter">
+                <c:if test="${item.enable}">
+                    <label class="checkbox">
+                        <form:checkbox path="feducations" value="${item.name}"/>
+                        ${item.name} (${item.count})
+                    </label>
+                </c:if>
+            </c:forEach>
+        </div>
+        </c:if>
+                <c:if test="${not empty experiences}">
+        <div id="experienceId" class="quick-experience">
+            <c:forEach items="${experiences}" var="item" varStatus="rowCounter">
+                <c:if test="${item.enable}">
+                    <label class="checkbox">
+                        <form:checkbox path="fexperiences" value="${item.name}"/>
+                        ${item.name} (${item.count})
+                    </label>
+                </c:if>
+            </c:forEach>
+        </div>
+        </c:if>
+        <form:hidden path="flocation"/>
+        <form:hidden path="pageNumber" value="1"/>
+    </form:form>
+    <script type="text/javascript">
+        <![CDATA[
+                $(document).ready(function() {
+                    var $form = $('#quick-job-form');
+                    $form.bind('submit', function(e) {
+                        $('body').modalmanager('loading');
+                        $form.unbind('submit');
+                        $form.submit();
+                        e.preventDefault();
+                        return false;
+                    });
+                });
+        ]]>
+    </script>
+</div>

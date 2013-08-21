@@ -40,6 +40,7 @@
                 <div class="controls">
                     <form:select path="jobExperienceLevel">
                         <form:option value="Chưa có kinh nghiệm">Chưa có kinh nghiệm</form:option>
+                        <form:option value="Dưới 1 năm">Dưới 1 năm</form:option>
                         <form:option value="1 năm">1 năm</form:option>
                         <form:option value="2 năm">2 năm</form:option>
                         <form:option value="3 năm">3 năm</form:option>

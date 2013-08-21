@@ -61,43 +61,36 @@
             </c:forEach>
         </div>
         <div class="tab-pane" id="jobCategory">
-            <div class="span8">
-                <div class="row-fluid">
-                    <div class="container-fluid"><!----></div>
-                    <c:forEach items="${categories}" var="item" varStatus="rowCounter">
-                        <c:if test="${item.enabled}">
-                            <div class="span5">
-                                <c:if test="${item.count gt 500}">
-                                    <span class="hight-light"><util:category category="${item.name}" title="Tìm việc làm" color="red"/></span> (${item.count})
-                                </c:if>
-                                <c:if test="${item.count lt 500}">
-                                    <util:category category="${item.name}" title="Tìm việc làm"/> (${item.count})
-                                </c:if>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="span4">
-                <iframe src="https://docs.google.com/spreadsheet/embeddedform?formkey=dGN6MFFmeFZkUTJwajJVVDVPUF9WcVE6MQ" width="280" height="780" frameborder="0" marginheight="0" marginwidth="0">Đang tải...</iframe>
-            </div>
-        </div>
-        <div class="tab-pane" id="jobLocation">
             <div class="row-fluid">
                 <div class="container-fluid"><!----></div>
-                <c:forEach items="${locations}" var="item">
+                <c:forEach items="${categories}" var="item" varStatus="rowCounter">
                     <c:if test="${item.enabled}">
-                        <div class="span3">
-                            <c:if test="${item.count gt 200}">
-                                <span class="hight-light"><util:location location="${item.name}" title="Việc làm tại" color="red"/></span> (${item.count})
+                        <div class="span6" style="margin-left: 5px">
+                            <c:if test="${item.count gt 500}">
+                                <span class="hight-light"><util:category category="${item.name}" title="Tìm việc làm" color="red"/></span> (${item.count})
                             </c:if>
-                            <c:if test="${item.count lt 200}">
-                                <util:location location="${item.name}" title="Việc làm tại"/> (${item.count})
+                            <c:if test="${item.count lt 500}">
+                                <util:category category="${item.name}" title="Tìm việc làm"/> (${item.count})
                             </c:if>
                         </div>
                     </c:if>
                 </c:forEach>
             </div>
+        </div>
+        <div class="tab-pane" id="jobLocation">
+            <div class="container-fluid"><!----></div>
+            <c:forEach items="${locations}" var="item">
+                <c:if test="${item.enabled}">
+                    <div class="span4" style="margin-left: 5px">
+                        <c:if test="${item.count gt 200}">
+                            <span class="hight-light"><util:location location="${item.name}" title="Việc làm tại" color="red"/></span> (${item.count})
+                        </c:if>
+                        <c:if test="${item.count lt 200}">
+                            <util:location location="${item.name}" title="Việc làm tại"/> (${item.count})
+                        </c:if>
+                    </div>
+                </c:if>
+            </c:forEach>
         </div>
     </div>
 </div>

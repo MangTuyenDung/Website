@@ -70,7 +70,7 @@ ul { list-style-type: none;}
 .list-keyword ul li a { color: #666; }
 
 .container {
-    width: 870px !important;
+    width: 1200px !important;
 }
 
 .border-radius {
@@ -80,6 +80,11 @@ ul { list-style-type: none;}
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
+}
+
+.border-core {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
 
 .border-radius hr {

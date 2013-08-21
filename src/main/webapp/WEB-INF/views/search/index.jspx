@@ -11,7 +11,7 @@
     <spring:url var="search_url" value="/tim-viec-lam"/>
     <spring:url var="search_json_url" value="/tim-viec-lam/json"/>
     <div id="search" class="navbar">
-        <div class="navbar-inner">
+        <div class="navbar-inner">  
             <center>
                 <div style="padding-top: 20px;">
                     <form:form id="search-form" class="form-search" modelAttribute="sform" method="POST" action="${search_url}">
@@ -28,7 +28,6 @@
                             </div>
                             <span class="help-inline" style="padding-top: 10px;"><form:errors path="stext" /></span>
                         </div>
-
                     </form:form>
                 </div>
             </center>

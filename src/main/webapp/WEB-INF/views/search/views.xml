@@ -5,4 +5,8 @@
         <put-attribute name="body"
                        value="/WEB-INF/views/search/view.jspx" />
     </definition>
+    <definition extends="null" name="search/filter">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/search/filter.jspx" />
+    </definition>
 </tiles-definitions>

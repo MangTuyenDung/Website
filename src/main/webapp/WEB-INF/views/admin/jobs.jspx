@@ -44,7 +44,7 @@
                         </td>
                         <td style="vertical-align: middle">
                             <strong>
-                                <util:job id="${item.jobId}" title="${item.jobName}" maxlength="250"/>
+                                <util:reviewjob id="${item.jobId}" title="${item.jobName}" maxlength="250"/>
                             </strong>
                             <br/>
                             <span class="text-warning">${item.jobCompany}</span>
@@ -53,10 +53,12 @@
                             <fmt:formatDate pattern="dd-MM-yyyy" value="${item.created}" />
                         </td>
                         <td style="vertical-align: middle">
+                            <c:if test="${not item.status}">
                             <form method="POST" action="${publish_url}">
                                 <input type="hidden" name="id" value="${item.jobId}"/>
-                                <input type="submit" name="publish" value="Publish"/>
-                            </form> 
+                                <input class="btn btn-success" type="submit" name="publish" value="Publish"/>
+                            </form>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>

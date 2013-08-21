@@ -121,9 +121,19 @@
             </div>
         </div>
     </div>
-    <spring:url value="/tim-viec-lam-${fn:toLowerCase(category.url)}/tai-${fn:toLowerCase(location.url)}" var="page_url" />
-    <util:pagination maxPages="${maxPages}" page="${pageNo}" size="${sizeNo}" linkparam="${page_url}"/>
-    <div class="breadcrumb">
+    <spring:url value="/tim-viec-lam-${fn:toLowerCase(category.url)}/tai-${fn:toLowerCase(location.url)}.html" var="page_url" />
+    <util:pagefilter maxPages="${maxPages}" page="${pageNo}" size="${sizeNo}" linkparam="${page_url}"/>
+    <script type="text/javascript">
+        <![CDATA[
+                function nextPage(pNo) {
+                    var $form = $('#quick-job-form');
+                    $form.attr("action","${page_url}");
+                    $('body').modalmanager('loading');
+                    $('#pageNumber').val(pNo);
+                    $form.submit();
+                }
+        ]]>
+    </script><div class="breadcrumb">
         <li>
             <a title="Mạng tuyển dụng" href="${home_url}">
                 Tìm việc nhanh

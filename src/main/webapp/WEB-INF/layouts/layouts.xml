@@ -12,6 +12,14 @@
     </definition>
   
     <definition name="null" template="/WEB-INF/layouts/home.jspx">
+        <put-attribute name="quick" value="/WEB-INF/views/search/quick.jspx" />
+        <put-attribute name="search" value="/WEB-INF/views/search/index.jspx" />
+        <put-attribute name="header" value="/WEB-INF/views/header.jspx" />
+        <put-attribute name="menu" value="/WEB-INF/views/home/menu.jspx" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jspx" />
+    </definition>
+    
+    <definition name="view" template="/WEB-INF/layouts/view.jspx">
         <put-attribute name="search" value="/WEB-INF/views/search/index.jspx" />
         <put-attribute name="header" value="/WEB-INF/views/header.jspx" />
         <put-attribute name="menu" value="/WEB-INF/views/home/menu.jspx" />
